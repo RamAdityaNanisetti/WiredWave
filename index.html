@@ -14,7 +14,7 @@
             --primary-bg: #0b1120;
             --accent-blue: #3b82f6;
             --accent-cyan: #2dd4bf;
-            --terminal-bg: rgba(15, 23, 42, 0.8);
+            --terminal-bg: rgba(15, 23, 42, 0.85);
         }
 
         body {
@@ -44,11 +44,32 @@
             opacity: 0.35;
         }
 
+        /* Disguised Image Integration */
+        .hero-image-integration {
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 120%;
+            height: 140%;
+            z-index: -1;
+            opacity: 0.15;
+            filter: saturate(0) contrast(1.2) brightness(0.8);
+            mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+            pointer-events: none;
+            object-fit: cover;
+        }
+
+        .terminal-container {
+            position: relative;
+            z-index: 10;
+        }
+
         .terminal-window {
             background: var(--terminal-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
         }
 
         .bento-card {
@@ -88,12 +109,11 @@
             background: var(--accent-blue);
         }
 
-        /* Mobile Menu Transitions */
-        #mobile-menu {
+        #pdf-modal {
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
         
-        .menu-open {
+        .modal-open {
             transform: translateY(0) !important;
             opacity: 1 !important;
             pointer-events: auto !important;
@@ -106,12 +126,33 @@
                 font-size: 3.5rem !important;
                 line-height: 1.1 !important;
             }
+            .hero-image-integration {
+                width: 150%;
+                right: -25%;
+                opacity: 0.1;
+            }
         }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
     <canvas id="network-canvas"></canvas>
+
+    <!-- PDF Viewer Modal -->
+    <div id="pdf-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 opacity-0 pointer-events-none transform scale-95 transition-all duration-300">
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="relative w-full h-full max-w-6xl bg-[#0f172a] rounded-2xl border border-white/10 shadow-2xl overflow-hidden flex flex-col">
+            <div class="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-[#1e293b]">
+                <h3 id="modal-title" class="text-sm font-bold uppercase tracking-widest text-slate-300">Document Viewer</h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-white transition">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="flex-1 bg-white">
+                <iframe id="pdf-frame" src="" class="w-full h-full border-none"></iframe>
+            </div>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-[#0b1120]/80 backdrop-blur-md border-b border-white/5">
@@ -121,7 +162,6 @@
                 <span class="text-xl font-extrabold tracking-tighter uppercase">Wired<span class="text-blue-500">Wave</span></span>
             </div>
             
-            <!-- Desktop Nav -->
             <div class="hidden md:flex items-center space-x-8 text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300">
                 <a href="#solutions" class="hover:text-white transition">Site Audits</a>
                 <a href="#solutions" class="hover:text-white transition">Solutions</a>
@@ -129,24 +169,13 @@
                 <a href="mailto:contact@wiredwave.in" class="btn-primary text-white px-6 py-2.5 rounded-md transition duration-300 shadow-lg shadow-blue-600/20">Contact Engineering</a>
             </div>
 
-            <!-- Mobile Toggle -->
             <button id="menu-toggle" class="md:hidden text-white p-2">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
-
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 top-[64px] bg-[#0b1120] z-40 p-8 md:hidden transform -translate-y-full opacity-0 pointer-events-none border-t border-white/5">
-            <div class="flex flex-col space-y-8 text-center">
-                <a href="#solutions" class="text-lg font-bold tracking-widest uppercase text-slate-300 hover:text-white menu-link">Site Audits</a>
-                <a href="#solutions" class="text-lg font-bold tracking-widest uppercase text-slate-300 hover:text-white menu-link">Solutions</a>
-                <a href="#process" class="text-lg font-bold tracking-widest uppercase text-slate-300 hover:text-white menu-link">Resilience</a>
-                <a href="mailto:contact@wiredwave.in" class="btn-primary text-white px-6 py-4 rounded-md font-bold uppercase tracking-widest text-sm shadow-lg shadow-blue-600/20">Contact Engineering</a>
-            </div>
-        </div>
     </nav>
 
-    <!-- 1. Hero Section -->
+    <!-- Hero Section -->
     <header class="pt-32 md:pt-40 pb-20 px-6 min-h-screen flex items-center">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
             
@@ -168,7 +197,10 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-5 w-full">
+            <div class="lg:col-span-5 w-full terminal-container">
+                <!-- Integrated Image (Disguised) -->
+                <img src="Gemini_Generated_Image_uwn2skuwn2skuwn2.jpg" alt="Rack Infrastructure" class="hero-image-integration" onerror="this.style.display='none'">
+                
                 <div class="terminal-window rounded-xl p-5 md:p-7 font-mono text-[11px] md:text-[13px] leading-relaxed overflow-hidden">
                     <div class="flex space-x-2 mb-6 md:mb-8">
                         <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
@@ -188,9 +220,9 @@
         </div>
     </header>
 
-    <!-- 2. Metrics Bar -->
+    <!-- Metrics Bar -->
     <div class="w-full bg-[#0b1120] border-y border-white/5 overflow-x-hidden">
-        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-8 opacity-40 grayscale">
+        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-8 opacity-40 grayscale text-center">
             <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] whitespace-nowrap">SDN Architecture</span>
             <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] whitespace-nowrap">VLAN Segmentation</span>
             <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] whitespace-nowrap">Proxmox Virtualization</span>
@@ -198,7 +230,7 @@
         </div>
     </div>
 
-    <!-- 3. Core Pillars -->
+    <!-- Core Pillars -->
     <section id="solutions" class="py-20 md:py-32 px-6">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-[10px] md:text-[11px] font-bold text-blue-500 uppercase tracking-[0.4em] mb-12 md:mb-16 text-center md:text-left">Service Portfolio</h2>
@@ -206,7 +238,12 @@
                 
                 <div class="md:col-span-4 p-8 md:p-10 bento-card rounded-2xl group">
                     <div class="w-12 h-1 bg-blue-500 mb-8 transition-all group-hover:w-24"></div>
-                    <h3 class="text-2xl md:text-3xl font-bold mb-4">The SOHO Blueprint</h3>
+                    <button onclick="openModal('https://docs.google.com/presentation/d/1RXZIv9jmqa8HBTZ1XjJoiwMt3NEx30Gk/preview', 'The SOHO Blueprint')" class="text-left block group/link">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4 group-hover/link:text-blue-400 transition-colors inline-flex items-center gap-3">
+                            The SOHO Blueprint
+                            <i class="fas fa-external-link-alt text-sm opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </button>
                     <p class="text-slate-400 mb-6 max-w-lg text-sm md:text-base">
                         Optimized wired and wireless integration designed for zero-latency environments. We implement high-density access points and intelligent switching logic.
                     </p>
@@ -214,7 +251,12 @@
 
                 <div class="md:col-span-2 p-8 md:p-10 bento-card rounded-2xl group flex flex-col justify-between">
                     <div>
-                        <h3 class="text-xl font-bold mb-4 leading-tight">Sovereign Surveillance</h3>
+                        <button onclick="openModal('#', 'Sovereign Surveillance')" class="text-left block group/link">
+                            <h3 class="text-xl font-bold mb-4 leading-tight group-hover/link:text-blue-400 transition-colors inline-flex items-center gap-2">
+                                Sovereign Surveillance
+                                <i class="fas fa-file-pdf text-xs opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
+                            </h3>
+                        </button>
                         <p class="text-sm text-slate-400">Physically isolated VLANs for camera traffic. Local-first storage with zero cloud dependency.</p>
                     </div>
                     <div class="mt-8 flex items-center space-x-2">
@@ -224,72 +266,90 @@
                 </div>
 
                 <div class="md:col-span-3 p-8 md:p-10 bento-card rounded-2xl group">
-                    <h3 class="text-xl font-bold mb-4">Virtualization Layers</h3>
+                    <button onclick="openModal('#', 'Virtualization Layers')" class="text-left block group/link">
+                        <h3 class="text-xl font-bold mb-4 group-hover/link:text-blue-400 transition-colors inline-flex items-center gap-2">
+                            Virtualization Layers
+                            <i class="fas fa-file-alt text-xs opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </button>
                     <p class="text-sm text-slate-400 leading-relaxed">Deploying robust Proxmox environments for high-availability services and local AI-driven edge analytics.</p>
                 </div>
 
                 <div class="md:col-span-3 p-8 md:p-10 bento-card rounded-2xl group">
-                    <h3 class="text-xl font-bold mb-4">The Security Perimeter</h3>
+                    <button onclick="openModal('#', 'The Security Perimeter')" class="text-left block group/link">
+                        <h3 class="text-xl font-bold mb-4 group-hover/link:text-blue-400 transition-colors inline-flex items-center gap-2">
+                            The Security Perimeter
+                            <i class="fas fa-shield-alt text-xs opacity-0 group-hover/link:opacity-100 transition-opacity"></i>
+                        </h3>
+                    </button>
                     <p class="text-sm text-slate-400 leading-relaxed">Advanced VLAN segmentation and WireGuard VPN tunneling to ensure your data remains accessible only by you.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4. Implementation Timeline -->
+    <!-- Implementation Timeline -->
     <section id="process" class="py-20 md:py-32 bg-[#080d18]">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <h2 class="text-[10px] md:text-[11px] font-bold text-blue-500 uppercase tracking-[0.4em] mb-16 md:mb-24">Implementation Methodology</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
-                <div class="p-4">
-                    <div class="text-4xl font-bold text-slate-800 mb-4 italic">01</div>
-                    <h4 class="text-lg font-bold mb-2">Audit</h4>
-                    <p class="text-[10px] md:text-[11px] text-slate-500 uppercase tracking-widest leading-loose">Infrastructure bottlenecks identified via spectrum analysis.</p>
+                <div class="p-4 group">
+                    <div class="text-4xl font-bold text-slate-800 mb-4 italic transition-colors group-hover:text-blue-500/20">01</div>
+                    <button onclick="openModal('#', '01 Audit Protocol')" class="text-left block w-full group/title">
+                        <h4 class="text-lg font-bold mb-2 transition-colors group-hover/title:text-blue-400 inline-flex items-center gap-2">
+                            Audit
+                            <i class="fas fa-file-invoice text-[10px] opacity-0 group-hover/title:opacity-100 transition-opacity"></i>
+                        </h4>
+                    </button>
+                    <p class="text-[10px] md:text-[11px] text-slate-500 uppercase tracking-widest">Infrastructure bottlenecks identified via spectrum analysis.</p>
                 </div>
-                <div class="p-4">
-                    <div class="text-4xl font-bold text-slate-800 mb-4 italic">02</div>
-                    <h4 class="text-lg font-bold mb-2">Design</h4>
-                    <p class="text-[10px] md:text-[11px] text-slate-500 uppercase tracking-widest leading-loose">Custom SDN hardware mapping and heatwave simulation.</p>
+                <div class="p-4 group">
+                    <div class="text-4xl font-bold text-slate-800 mb-4 italic transition-colors group-hover:text-blue-500/20">02</div>
+                    <button onclick="openModal('#', '02 Design Framework')" class="text-left block w-full group/title">
+                        <h4 class="text-lg font-bold mb-2 transition-colors group-hover/title:text-blue-400 inline-flex items-center gap-2">
+                            Design
+                            <i class="fas fa-project-diagram text-[10px] opacity-0 group-hover/title:opacity-100 transition-opacity"></i>
+                        </h4>
+                    </button>
+                    <p class="text-[10px] md:text-[11px] text-slate-500 uppercase tracking-widest">Custom SDN hardware mapping and heatwave simulation.</p>
                 </div>
-                <div class="p-4">
-                    <div class="text-4xl font-bold text-slate-800 mb-4 italic">03</div>
-                    <h4 class="text-lg font-bold mb-2">Deployment</h4>
-                    <p class="text-[10px] md:text-[11px] text-slate-500 uppercase tracking-widest leading-loose">Precision integration with zero-downtime cutover targets.</p>
+                <div class="p-4 group">
+                    <div class="text-4xl font-bold text-slate-800 mb-4 italic transition-colors group-hover:text-blue-500/20">03</div>
+                    <button onclick="openModal('#', '03 Deployment SOP')" class="text-left block w-full group/title">
+                        <h4 class="text-lg font-bold mb-2 transition-colors group-hover/title:text-blue-400 inline-flex items-center gap-2">
+                            Deployment
+                            <i class="fas fa-server text-[10px] opacity-0 group-hover/title:opacity-100 transition-opacity"></i>
+                        </h4>
+                    </button>
+                    <p class="text-[10px] md:text-[11px] text-slate-500 uppercase tracking-widest">Precision integration with zero-downtime cutover targets.</p>
                 </div>
-                <div class="p-4">
-                    <div class="text-4xl font-bold text-slate-800 mb-4 italic">04</div>
-                    <h4 class="text-lg font-bold mb-2">Optimization</h4>
-                    <p class="text-[10px] md:text-[11px] text-slate-500 uppercase tracking-widest leading-loose">Continuous tuning for deterministic peak throughput.</p>
+                <div class="p-4 group">
+                    <div class="text-4xl font-bold text-slate-800 mb-4 italic transition-colors group-hover:text-blue-500/20">04</div>
+                    <button onclick="openModal('#', '04 Optimization Tuning')" class="text-left block w-full group/title">
+                        <h4 class="text-lg font-bold mb-2 transition-colors group-hover/title:text-blue-400 inline-flex items-center gap-2">
+                            Optimization
+                            <i class="fas fa-chart-line text-[10px] opacity-0 group-hover/title:opacity-100 transition-opacity"></i>
+                        </h4>
+                    </button>
+                    <p class="text-[10px] md:text-[11px] text-slate-500 uppercase tracking-widest">Continuous tuning for deterministic peak throughput.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5. Tech Stack -->
-    <section class="py-20 md:py-32">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-[10px] md:text-[11px] font-bold text-slate-500 uppercase tracking-[0.4em] mb-12 md:mb-16">Ecosystem Partners</h2>
-            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-30">
-                <div class="font-black text-xl md:text-2xl tracking-tighter">UBIQUITI</div>
-                <div class="font-black text-xl md:text-2xl tracking-tighter">TP-LINK OMADA</div>
-                <div class="font-black text-xl md:text-2xl tracking-tighter">PROXMOX</div>
-                <div class="font-black text-xl md:text-2xl tracking-tighter">SYNOLOGY</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. Footer -->
-    <footer class="bg-[#050810] py-24 px-6 border-t border-white/5">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-20">
+    <!-- Footer -->
+    <footer class="bg-[#050810] py-16 md:py-24 px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-20">
             <div>
                 <div class="flex items-center space-x-3 mb-6">
                     <div class="w-6 h-6 bg-blue-600 rounded"></div>
-                    <span class="text-lg font-extrabold tracking-tighter uppercase">WiredWave Network Solutions</span>
+                    <span class="text-lg font-extrabold tracking-tighter uppercase">WiredWave</span>
                 </div>
                 <p class="text-sm text-slate-500 leading-relaxed max-w-xs font-medium">
                     Engineering reliable, high-performance network ecosystems for the ambitious SOHO. Built for stability, secured for privacy.
                 </p>
             </div>
+            
             <div class="grid grid-cols-2 gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-500">
                 <div class="space-y-4">
                     <p class="text-white">Expertise</p>
@@ -303,32 +363,65 @@
                     <a href="mailto:contact@wiredwave.in" class="block hover:text-blue-500">Email Engineering</a>
                 </div>
             </div>
+
             <div>
                 <h5 class="text-[10px] font-bold uppercase tracking-widest text-white mb-6">Infrastructure Insights</h5>
                 <form class="flex border-b border-white/10 pb-2">
                     <input type="email" placeholder="ENTER EMAIL" class="bg-transparent text-[10px] font-bold w-full focus:outline-none placeholder-slate-600">
-                    <button class="text-blue-500 font-bold text-[10px]">→</button>
+                    <button type="submit" class="text-blue-500 font-bold text-[10px]">&rarr;</button>
                 </form>
-                <p class="text-[10px] text-slate-600 mt-4 italic font-medium">Quarterly reports for network administrators.</p>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em]">
-            <span>© 2026 WiredWave Networking Solutions</span>
-            <span class="mt-4 md:mt-0 italic tracking-normal">Deterministic by Design.</span>
+        
+        <div class="max-w-7xl mx-auto mt-16 md:mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em] text-center md:text-left gap-4">
+            <div class="flex flex-col gap-2">
+                <span>&copy; 2026 WiredWave Network Solutions</span>
+                <span class="text-[9px] opacity-70">SRE-Grade Reliability // All Protocols Active</span>
+            </div>
+            <span class="italic tracking-normal">Deterministic by Design.</span>
         </div>
     </footer>
 
-    <!-- Mesh Background Script -->
+    <!-- Scripts -->
     <script>
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
         
+        const modal = document.getElementById('pdf-modal');
+        const pdfFrame = document.getElementById('pdf-frame');
+        const modalTitle = document.getElementById('modal-title');
+
+        function openModal(url, title) {
+            if (!url || url === '#') {
+                // Placeholder for local logic if no URL is provided
+                // For now just show the modal with the title
+                pdfFrame.src = "about:blank"; 
+                modalTitle.textContent = title;
+                modal.classList.add('modal-open');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+            pdfFrame.src = url;
+            modalTitle.textContent = title;
+            modal.classList.add('modal-open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('modal-open');
+            setTimeout(() => { pdfFrame.src = ''; }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
         function initCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             particles = [];
-            // Lower particle count on mobile for performance
             const multiplier = window.innerWidth < 768 ? 25000 : 14000;
             const numberOfParticles = (canvas.width * canvas.height) / multiplier;
             for (let i = 0; i < numberOfParticles; i++) {
@@ -381,26 +474,6 @@
             }
             requestAnimationFrame(animate);
         }
-
-        // Mobile Menu Logic
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuLinks = document.querySelectorAll('.menu-link');
-
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('menu-open');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        });
-
-        menuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('menu-open');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-                menuToggle.querySelector('i').classList.remove('fa-times');
-            });
-        });
 
         window.addEventListener('resize', initCanvas);
         window.addEventListener('load', () => {
