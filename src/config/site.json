@@ -1,0 +1,13 @@
+{
+  "company": {
+    "name": "WiredWave",
+    "brand_html": "Wired<span class=\"text-blue-500\">Wave</span>",
+    "year": "2026"
+  },
+  "contact": {
+    "email": "contact@wiredwave.in"
+  },
+  "site": {
+    "title_suffix": "Enterprise Infrastructure & Network Engineering"
+  }
+}
