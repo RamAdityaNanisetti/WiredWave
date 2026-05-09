@@ -118,6 +118,9 @@
             opacity: 1 !important;
             pointer-events: auto !important;
         }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         header, section, footer { position: relative; z-index: 10; }
 
@@ -134,6 +137,7 @@
         }
     </style>
 </head>
+
 <body class="overflow-x-hidden">
 
     <canvas id="network-canvas"></canvas>
@@ -191,7 +195,7 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
-                    <a href="mailto:contact@wiredwave.in" class="request-link text-white font-bold text-sm tracking-tight hover:text-blue-400 transition duration-300">
+                    <a href="#" class="request-link text-white font-bold text-sm tracking-tight hover:text-blue-400 transition duration-300">
                         Request Site Audit
                     </a>
                 </div>

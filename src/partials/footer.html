@@ -1,44 +1,44 @@
-<!-- Footer -->
-<footer class="bg-[#050810] py-16 md:py-24 px-6 border-t border-white/5">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-20">
-        <div>
-            <div class="flex items-center space-x-3 mb-6">
-                <div class="w-6 h-6 bg-blue-600 rounded"></div>
-                <span class="text-lg font-extrabold tracking-tighter uppercase">{{company.name}}</span>
+    <!-- Footer -->
+    <footer class="bg-[#050810] py-16 md:py-24 px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-20">
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-6 h-6 bg-blue-600 rounded"></div>
+                    <span class="text-lg font-extrabold tracking-tighter uppercase">WiredWave</span>
+                </div>
+                <p class="text-sm text-slate-500 leading-relaxed max-w-xs font-medium">
+                    Engineering reliable, high-performance network ecosystems for the ambitious SOHO. Built for stability, secured for privacy.
+                </p>
             </div>
-            <p class="text-sm text-slate-500 leading-relaxed max-w-xs font-medium">
-                Engineering reliable, high-performance network ecosystems for the ambitious SOHO. Built for stability, secured for privacy.
-            </p>
+            
+            <div class="grid grid-cols-2 gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                <div class="space-y-4">
+                    <p class="text-white">Expertise</p>
+                    <a href="#" class="block hover:text-blue-500">Architecture</a>
+                    <a href="#" class="block hover:text-blue-500">Surveillance</a>
+                    <a href="#" class="block hover:text-blue-500">Security</a>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-white">Contact</p>
+                    <a href="#" class="block hover:text-blue-500">LinkedIn</a>
+                    <a href="mailto:contact@wiredwave.in" class="block hover:text-blue-500">Email Engineering</a>
+                </div>
+            </div>
+
+            <div>
+                <h5 class="text-[10px] font-bold uppercase tracking-widest text-white mb-6">Infrastructure Insights</h5>
+                <form class="flex border-b border-white/10 pb-2">
+                    <input type="email" placeholder="ENTER EMAIL" class="bg-transparent text-[10px] font-bold w-full focus:outline-none placeholder-slate-600">
+                    <button type="submit" class="text-blue-500 font-bold text-[10px]">&rarr;</button>
+                </form>
+            </div>
         </div>
         
-        <div class="grid grid-cols-2 gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-500">
-            <div class="space-y-4">
-                <p class="text-white">Expertise</p>
-                <a href="#" class="block hover:text-blue-500">Architecture</a>
-                <a href="#" class="block hover:text-blue-500">Surveillance</a>
-                <a href="#" class="block hover:text-blue-500">Security</a>
+        <div class="max-w-7xl mx-auto mt-16 md:mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em] text-center md:text-left gap-4">
+            <div class="flex flex-col gap-2">
+                <span>&copy; 2026 WiredWave Network Solutions</span>
+                <span class="text-[9px] opacity-70">SRE-Grade Reliability // All Protocols Active</span>
             </div>
-            <div class="space-y-4">
-                <p class="text-white">Contact</p>
-                <a href="#" class="block hover:text-blue-500">LinkedIn</a>
-                <a href="mailto:{{contact.email}}" class="block hover:text-blue-500">Email Engineering</a>
-            </div>
+            <span class="italic tracking-normal">Deterministic by Design.</span>
         </div>
-
-        <div>
-            <h5 class="text-[10px] font-bold uppercase tracking-widest text-white mb-6">Infrastructure Insights</h5>
-            <form class="flex border-b border-white/10 pb-2">
-                <input type="email" placeholder="ENTER EMAIL" class="bg-transparent text-[10px] font-bold w-full focus:outline-none placeholder-slate-600">
-                <button type="submit" class="text-blue-500 font-bold text-[10px]">&rarr;</button>
-            </form>
-        </div>
-    </div>
-    
-    <div class="max-w-7xl mx-auto mt-16 md:mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] text-slate-600 font-bold uppercase tracking-[0.2em] text-center md:text-left gap-4">
-        <div class="flex flex-col gap-2">
-            <span>&copy; {{company.year}} {{company.name}} Network Solutions</span>
-            <span class="text-[9px] opacity-70">SRE-Grade Reliability // All Protocols Active</span>
-        </div>
-        <span class="italic tracking-normal">Deterministic by Design.</span>
-    </div>
-</footer>
+    </footer>

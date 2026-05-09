@@ -1,5 +1,166 @@
-<!-- Scripts -->
-<script src="assets/js/network-canvas.js" defer></script>
-<script src="assets/js/ui-controller.js" defer></script>
+    <!-- Scripts -->
+    <script>
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        const modal = document.getElementById('pdf-modal');
+        const pdfFrame = document.getElementById('pdf-frame');
+        const modalTitle = document.getElementById('modal-title');
+
+        // Schematic Scroll & Tab Sync Logic
+        const scrollContainer = document.getElementById('arch-scroll');
+        const metricTabs = document.querySelectorAll('.metric-tab');
+
+        if (scrollContainer && metricTabs.length) {
+            scrollContainer.addEventListener('scroll', () => {
+                const containerWidth = scrollContainer.offsetWidth;
+                const scrollLeft = scrollContainer.scrollLeft;
+                const center = scrollLeft + (containerWidth / 2);
+                
+                let closestIndex = 0;
+                let minDistance = Infinity;
+
+                scrollContainer.querySelectorAll('.arch-card').forEach((card, index) => {
+                    const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                    const distance = Math.abs(center - cardCenter);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+
+                metricTabs.forEach((tab, i) => {
+                    const span = tab.querySelector('span');
+                    const line = tab.querySelector('div:last-child');
+                    
+                    if (i === closestIndex) {
+                        span.classList.remove('text-slate-400');
+                        span.classList.add('text-blue-400');
+                        line.classList.replace('w-0', 'w-6');
+                        line.classList.replace('bg-transparent', 'bg-blue-400');
+                        
+                        // Ensure card gets glowing borders
+                        const card = scrollContainer.querySelectorAll('.arch-card')[i];
+                        card.classList.add('border-blue-500', 'shadow-[0_0_30px_rgba(59,130,246,0.15)]');
+                        card.classList.remove('border-slate-800/60');
+                    } else {
+                        span.classList.add('text-slate-400');
+                        span.classList.remove('text-blue-400');
+                        line.classList.replace('w-6', 'w-0');
+                        line.classList.replace('bg-blue-400', 'bg-transparent');
+                        
+                        // Remove glowing borders
+                        const card = scrollContainer.querySelectorAll('.arch-card')[i];
+                        card.classList.remove('border-blue-500', 'shadow-[0_0_30px_rgba(59,130,246,0.15)]');
+                        card.classList.add('border-slate-800/60');
+                    }
+                });
+            });
+
+            metricTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const index = tab.getAttribute('data-index');
+                    const target = scrollContainer.querySelector(`.arch-card[data-index="${index}"]`);
+                    if (target) {
+                        scrollContainer.scrollTo({
+                            left: target.offsetLeft - (scrollContainer.offsetWidth / 2) + (target.offsetWidth / 2),
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Trigger scroll event on load to set initial state
+            scrollContainer.dispatchEvent(new Event('scroll'));
+        }
+
+        function openModal(url, title) {
+            if (!url || url === '#') {
+                pdfFrame.src = "about:blank"; 
+                modalTitle.textContent = title;
+                modal.classList.add('modal-open');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+            pdfFrame.src = url;
+            modalTitle.textContent = title;
+            modal.classList.add('modal-open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('modal-open');
+            setTimeout(() => { pdfFrame.src = ''; }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            const multiplier = window.innerWidth < 768 ? 25000 : 14000;
+            const numberOfParticles = (canvas.width * canvas.height) / multiplier;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = window.innerWidth < 768 ? 0.8 : 1.2;
+                this.speedX = (Math.random() - 0.5) * 0.15;
+                this.speedY = (Math.random() - 0.5) * 0.15;
+                this.color = '#3b82f6';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const limit = window.innerWidth < 768 ? 100 : 180;
+                    if (distance < limit) {
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${0.15 * (1 - distance/limit)})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        window.addEventListener('load', () => {
+            initCanvas();
+            animate();
+        });
+    </script>
 </body>
 </html>

@@ -1,78 +1,281 @@
-<!-- TECH STACK GALLERY -->
-<section class="w-full bg-[#0b1120] py-20">
-    <div class="max-w-7xl mx-auto px-6 mb-16 flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-10 text-center">
-        <span class="metric-span text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] active" data-index="0">SDN Topology</span>
-        <span class="metric-span text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em]" data-index="1">VLAN Segmentation</span>
-        <span class="metric-span text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em]" data-index="2">Proxmox Virtualization</span>
-        <span class="metric-span text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em]" data-index="3">Hardened Surveillance</span>
-    </div>
-
-    <div id="arch-scroll" class="flex gap-12 overflow-x-auto py-10 pb-20 hide-scrollbar snap-x snap-mandatory items-center w-full">
-        
-        <!-- 01: SDN TOPOLOGY -->
-        <div class="arch-card snap-center group" data-index="0">
-            <div class="card-visual p-12 grid-overlay">
-                <div class="w-full h-full flex flex-col items-center justify-center space-y-12">
-                    <div class="flex items-center justify-between w-full max-w-lg relative">
-                        <!-- Connecting Lines -->
-                        <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40">
-                            <path class="flow-line" d="M 60 45 L 220 45" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
-                            <path class="flow-line" d="M 280 45 L 440 45" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
-                        </svg>
-
-                        <!-- Hardware Chain -->
-                        <div class="flex flex-col items-center space-y-3 z-10 group-hover:scale-105 transition-transform duration-500">
-                            <div class="w-14 h-10 bg-slate-800 border border-slate-600 rounded flex items-center justify-center hardware-icon relative">
-                                <div class="absolute inset-0 bg-blue-500/5 blur-lg"></div>
-                                <div class="w-1.5 h-1.5 bg-emerald-500 rounded-full absolute top-1 right-1"></div>
-                                <span class="text-[7px] text-slate-500 font-mono">GW-01</span>
-                            </div>
-                            <span class="tech-label">Gateway</span>
-                        </div>
-
-                        <div class="flex flex-col items-center space-y-3 z-10 -translate-y-4">
-                            <div class="w-20 h-10 bg-blue-600 border border-blue-400 rounded shadow-[0_0_40px_rgba(37,99,235,0.3)] flex items-center justify-center">
-                                <div class="flex space-x-1">
-                                    <div class="w-1 h-3 bg-white/30 rounded-full"></div>
-                                    <div class="w-1 h-3 bg-white/60 rounded-full"></div>
-                                    <div class="w-1 h-3 bg-white/30 rounded-full"></div>
-                                </div>
-                            </div>
-                            <span class="tech-label text-blue-300">Software Defined Controller</span>
-                        </div>
-
-                        <div class="flex flex-col items-center space-y-3 z-10 group-hover:scale-105 transition-transform duration-500">
-                            <div class="w-24 h-8 bg-slate-800 border border-slate-600 rounded flex items-center justify-between px-2 hardware-icon">
-                                <div class="flex space-x-0.5">
-                                    <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-slate-600 rounded-full"></div>
-                                    <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
-                                </div>
-                                <span class="text-[6px] text-slate-500 font-mono">24-POE</span>
-                            </div>
-                            <span class="tech-label">Access Switch</span>
-                        </div>
-                    </div>
-
-                    <!-- Access Point -->
-                    <div class="flex flex-col items-center space-y-4">
-                         <div class="w-24 h-24 rounded-full bg-slate-900/50 border border-white/10 flex items-center justify-center relative">
-                            <div class="absolute inset-0 rounded-full border-2 border-blue-500/20 pulse-slow"></div>
-                            <div class="absolute inset-4 rounded-full border border-blue-500/10"></div>
-                            <svg class="w-8 h-8 text-blue-500/60" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-                         </div>
-                         <span class="tech-label bg-blue-500/10 border-blue-500/20 text-blue-400">U7 Enterprise WAP</span>
-                    </div>
-                </div>
+    <!-- TECH STACK GALLERY -->
+    <section class="w-full bg-[#0b1120] py-20 relative z-10 border-y border-white/5">
+        <!-- Metric Labels Navigation -->
+        <div class="max-w-6xl mx-auto px-6 mb-16 flex justify-between items-center text-center">
+            
+            <div class="flex flex-col items-center gap-3 cursor-pointer group metric-tab" data-index="0">
+                <span class="text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] text-blue-400 transition-colors">SDN Topology</span>
+                <div class="w-6 h-[2px] bg-blue-400 rounded-full transition-all duration-300"></div>
             </div>
-            <div class="card-content-overlay">
-                <p class="text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em] mb-2">Centralized Management</p>
-                <h3 class="text-xl md:text-2xl font-bold">SDN Architecture (Ubiquiti/Omada)</h3>
+            
+            <div class="flex flex-col items-center gap-3 cursor-pointer group metric-tab" data-index="1">
+                <span class="text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 group-hover:text-white transition-colors">VLAN Segmentation</span>
+                <div class="w-0 h-[2px] bg-transparent rounded-full transition-all duration-300 group-hover:bg-slate-400 group-hover:w-6"></div>
+            </div>
+            
+            <div class="flex flex-col items-center gap-3 cursor-pointer group metric-tab" data-index="2">
+                <span class="text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 group-hover:text-white transition-colors">Proxmox Virtualization</span>
+                <div class="w-0 h-[2px] bg-transparent rounded-full transition-all duration-300 group-hover:bg-slate-400 group-hover:w-6"></div>
+            </div>
+            
+            <div class="flex flex-col items-center gap-3 cursor-pointer group metric-tab" data-index="3">
+                <span class="text-[11px] md:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 group-hover:text-white transition-colors">Hardened Surveillance</span>
+                <div class="w-0 h-[2px] bg-transparent rounded-full transition-all duration-300 group-hover:bg-slate-400 group-hover:w-6"></div>
             </div>
         </div>
 
-        <!-- (rest of gallery preserved in template) -->
+        <!-- Horizontal Scroller -->
+        <div id="arch-scroll" class="flex gap-6 overflow-x-auto px-6 md:px-[calc(50vw-190px)] pb-12 hide-scrollbar snap-x snap-mandatory items-center">
+            
+            <!-- 01: SDN TOPOLOGY -->
+            <div class="arch-card snap-center w-[340px] h-[360px] md:w-[380px] md:h-[400px] shrink-0 bg-[#070b14] border border-blue-500 rounded-2xl relative overflow-hidden flex flex-col transition-all duration-500 shadow-[0_0_30px_rgba(59,130,246,0.15)]" data-index="0">
+                <!-- Visual Area -->
+                <div class="flex-1 relative flex flex-col items-center justify-center">
+                     <!-- Connecting Lines -->
+                     <div class="absolute top-[45%] left-0 w-full h-[1px] bg-slate-800"></div>
+                     <div class="absolute top-[45%] left-1/4 w-1/2 h-[1px] bg-blue-500/80 shadow-[0_0_10px_#3b82f6]"></div>
 
-    </div>
-</section>
+                     <!-- Components Row -->
+                     <div class="flex items-center justify-between w-[85%] z-10 relative -translate-y-8">
+                         <!-- Gateway -->
+                         <div class="flex flex-col items-center gap-3">
+                             <div class="w-12 h-8 bg-[#131c31] border border-slate-700/50 rounded flex items-center justify-center relative">
+                                 <div class="absolute top-1.5 right-1.5 w-1 h-1 bg-emerald-400 rounded-full"></div>
+                                 <span class="text-[6px] text-slate-500 font-mono">GW-01</span>
+                             </div>
+                             <span class="text-[7px] text-slate-500 font-bold tracking-widest uppercase">Gateway</span>
+                         </div>
+                         
+                         <!-- Controller -->
+                         <div class="flex flex-col items-center gap-3">
+                             <div class="w-20 h-10 bg-blue-600 rounded shadow-[0_0_20px_rgba(59,130,246,0.5)] flex items-center justify-center gap-1.5">
+                                 <div class="w-1 h-3.5 bg-white rounded-full"></div>
+                                 <div class="w-1 h-3.5 bg-white rounded-full"></div>
+                                 <div class="w-1 h-3.5 bg-white rounded-full"></div>
+                             </div>
+                             <span class="text-[7px] text-blue-400 font-bold tracking-widest uppercase">Software Defined Controller</span>
+                         </div>
+
+                         <!-- Switch -->
+                         <div class="flex flex-col items-center gap-3">
+                             <div class="w-14 h-8 bg-[#131c31] border border-slate-700/50 rounded flex items-center justify-between px-2">
+                                 <div class="flex gap-0.5">
+                                     <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
+                                     <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
+                                     <div class="w-1 h-1 bg-slate-600 rounded-full"></div>
+                                     <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
+                                 </div>
+                                 <span class="text-[5px] text-slate-500 font-mono">24-POE</span>
+                             </div>
+                             <span class="text-[7px] text-slate-500 font-bold tracking-widest uppercase">Access Switch</span>
+                         </div>
+                     </div>
+
+                     <!-- WAP -->
+                     <div class="absolute bottom-6 flex flex-col items-center gap-2">
+                         <div class="w-14 h-14 rounded-full border border-blue-500/20 flex items-center justify-center">
+                             <div class="w-8 h-8 rounded-full border border-blue-500/40 flex items-center justify-center">
+                                 <div class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]"></div>
+                             </div>
+                         </div>
+                         <span class="text-[7px] text-blue-500 font-bold tracking-widest uppercase">U7 Enterprise WAP</span>
+                     </div>
+                </div>
+
+                <!-- Text Overlay -->
+                <div class="px-8 pb-8 pt-4 relative z-10">
+                    <p class="text-[9px] font-bold text-blue-500 uppercase tracking-widest mb-1">Centralized Management</p>
+                    <h3 class="text-xl font-bold text-white tracking-tight">SDN Architecture<br>(Ubiquiti/Omada)</h3>
+                </div>
+            </div>
+
+            <!-- 02: VLAN SEGMENTATION -->
+            <div class="arch-card snap-center group w-[340px] h-[360px] md:w-[380px] md:h-[400px] shrink-0 bg-[#070b14] border border-slate-800/60 rounded-2xl relative overflow-hidden flex flex-col transition-all duration-500 hover:border-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]" data-index="1">
+                <div class="flex-1 p-8 pb-0 grid grid-cols-3 gap-3 items-center content-center -translate-y-4">
+                    <!-- VLAN 10 -->
+                    <div class="border border-slate-800 bg-[#0d1322] rounded-xl p-3 flex flex-col gap-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[8px] text-emerald-400 font-bold">VLAN 10:<br>SECURE</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></div>
+                        </div>
+                        <div class="w-full h-1 bg-slate-800 rounded-full mt-1 overflow-hidden"><div class="w-1/2 h-full bg-emerald-500"></div></div>
+                        <span class="text-[6px] text-slate-500 font-bold tracking-widest uppercase mt-1">Internal<br>Workstations</span>
+                    </div>
+                    <!-- VLAN 20 -->
+                    <div class="border border-slate-800 bg-[#0d1322] rounded-xl p-3 flex flex-col gap-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[8px] text-amber-400 font-bold">VLAN 20:<br>GUEST</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b]"></div>
+                        </div>
+                        <div class="w-full h-1 bg-slate-800 rounded-full mt-1 overflow-hidden"><div class="w-1/3 h-full bg-amber-500"></div></div>
+                        <span class="text-[6px] text-slate-500 font-bold tracking-widest uppercase mt-1">Isolated<br>Internet</span>
+                    </div>
+                    <!-- VLAN 30 -->
+                    <div class="border border-slate-800 bg-[#0d1322] rounded-xl p-3 flex flex-col gap-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[8px] text-blue-500 font-bold">VLAN 30:<br>IOT</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_#3b82f6]"></div>
+                        </div>
+                        <div class="w-full h-1 bg-slate-800 rounded-full mt-1 overflow-hidden"><div class="w-4/5 h-full bg-blue-500"></div></div>
+                        <span class="text-[6px] text-slate-500 font-bold tracking-widest uppercase mt-1">Smart<br>Devices</span>
+                    </div>
+                    <!-- VLAN 40 -->
+                    <div class="border border-slate-800 bg-[#0d1322] rounded-xl p-3 flex flex-col gap-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[8px] text-purple-400 font-bold">VLAN 40:<br>KIDS</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]"></div>
+                        </div>
+                        <div class="w-full h-1 bg-slate-800 rounded-full mt-1 overflow-hidden"><div class="w-1/4 h-full bg-purple-500"></div></div>
+                        <span class="text-[6px] text-slate-500 font-bold tracking-widest uppercase mt-1">Filtered<br>Content</span>
+                    </div>
+                    <!-- VLAN 50 -->
+                    <div class="border border-slate-800 bg-[#0d1322] rounded-xl p-3 flex flex-col gap-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[8px] text-red-500 font-bold">VLAN 50:<br>CCTV</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]"></div>
+                        </div>
+                        <div class="w-full h-1 bg-slate-800 rounded-full mt-1 overflow-hidden"><div class="w-full h-full bg-red-500"></div></div>
+                        <span class="text-[6px] text-slate-500 font-bold tracking-widest uppercase mt-1">High<br>Bandwidth</span>
+                    </div>
+                    <!-- VLAN 60 -->
+                    <div class="border border-slate-800 bg-[#0d1322] rounded-xl p-3 flex flex-col gap-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[8px] text-cyan-400 font-bold">VLAN 60:<br>VIP</span>
+                            <div class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></div>
+                        </div>
+                        <div class="w-full h-1 bg-slate-800 rounded-full mt-1 overflow-hidden"><div class="w-3/4 h-full bg-cyan-400"></div></div>
+                        <span class="text-[6px] text-slate-500 font-bold tracking-widest uppercase mt-1">Low<br>Latency/QOS</span>
+                    </div>
+                </div>
+                <div class="px-8 pb-8 relative z-10">
+                    <p class="text-[9px] font-bold text-cyan-400 uppercase tracking-widest mb-1">Network Logic</p>
+                    <h3 class="text-xl font-bold text-white tracking-tight">Virtual Segmentation &<br>Traffic Shaping</h3>
+                </div>
+            </div>
+
+            <!-- 03: PROXMOX VIRTUALIZATION -->
+            <div class="arch-card snap-center group w-[340px] h-[360px] md:w-[380px] md:h-[400px] shrink-0 bg-[#070b14] border border-slate-800/60 rounded-2xl relative overflow-hidden flex flex-col transition-all duration-500 hover:border-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]" data-index="2">
+                <div class="absolute top-6 right-8 z-10">
+                    <span class="text-[8px] text-slate-500 font-bold tracking-widest uppercase">ENCRYPTED VIEW</span>
+                </div>
+                <div class="flex-1 p-8 flex items-center justify-center -translate-y-2 mt-4">
+                    <div class="w-full bg-[#111827] border border-slate-700/60 rounded-xl overflow-hidden shadow-2xl">
+                        <!-- Header -->
+                        <div class="flex justify-between items-center px-4 py-3 border-b border-slate-700/60 bg-[#162032]">
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 rounded-full bg-rose-500"></div>
+                                <span class="text-[10px] text-slate-300 font-mono font-bold">proxmox-pve-01</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[8px] text-slate-500 uppercase tracking-widest font-bold">CPU: 14%</span>
+                                <div class="w-8 h-1 bg-slate-700 rounded-full"><div class="w-1/4 h-full bg-emerald-500 rounded-full"></div></div>
+                            </div>
+                        </div>
+                        <!-- Content -->
+                        <div class="p-4 grid grid-cols-2 gap-3">
+                            <!-- AI -->
+                            <div class="border border-slate-700/50 bg-[#0d1322] rounded-xl p-3">
+                                <div class="flex justify-between items-center mb-3">
+                                    <div class="w-6 h-6 bg-purple-600 rounded-md flex items-center justify-center text-[7px] font-bold text-white">AI</div>
+                                    <span class="text-[7px] text-slate-500 font-mono">LXC 101</span>
+                                </div>
+                                <div class="text-[10px] font-bold text-slate-200">Local AI Agent</div>
+                                <div class="text-[8px] text-slate-500 font-mono mt-0.5">ollama/llama3:8b</div>
+                            </div>
+                            <!-- NAS -->
+                            <div class="border border-slate-700/50 bg-[#0d1322] rounded-xl p-3">
+                                <div class="flex justify-between items-center mb-3">
+                                    <div class="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center text-[7px] font-bold text-white">NAS</div>
+                                    <span class="text-[7px] text-slate-500 font-mono">VM 102</span>
+                                </div>
+                                <div class="text-[10px] font-bold text-slate-200">ZFS Pool Storage</div>
+                                <div class="text-[8px] text-slate-500 font-mono mt-0.5">truenas-core-v13</div>
+                            </div>
+                            <!-- VPN -->
+                            <div class="border border-slate-700/50 bg-[#0d1322] rounded-xl p-3">
+                                <div class="flex justify-between items-center mb-3">
+                                    <div class="w-6 h-6 bg-emerald-600 rounded-md flex items-center justify-center text-[7px] font-bold text-white">VPN</div>
+                                    <span class="text-[7px] text-slate-500 font-mono">LXC 103</span>
+                                </div>
+                                <div class="text-[10px] font-bold text-slate-200">Mesh Gateway</div>
+                                <div class="text-[8px] text-slate-500 font-mono mt-0.5">tailscale-exit-node</div>
+                            </div>
+                            <!-- New -->
+                            <div class="border border-dashed border-slate-700/50 bg-transparent rounded-xl p-3 flex items-center justify-center">
+                                <span class="text-[8px] text-slate-600 font-bold uppercase tracking-widest">+ New Instance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-8 pb-8 relative z-10">
+                    <p class="text-[9px] font-bold text-purple-400 uppercase tracking-widest mb-1">Self-Hosted Stack</p>
+                    <h3 class="text-xl font-bold text-white tracking-tight">Proxmox Edge Virtualization</h3>
+                </div>
+            </div>
+
+            <!-- 04: HARDENED SURVEILLANCE -->
+            <div class="arch-card snap-center group w-[340px] h-[360px] md:w-[380px] md:h-[400px] shrink-0 bg-[#070b14] border border-slate-800/60 rounded-2xl relative overflow-hidden flex flex-col transition-all duration-500 hover:border-blue-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]" data-index="3">
+                <div class="flex-1 relative flex items-center justify-center p-0 overflow-hidden">
+                    
+                    <!-- SVG Background for FOV Cones and Network Lines -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="xMidYMid slice" viewBox="0 0 800 500">
+                        <!-- Translucent FOV Cones -->
+                        <path d="M 190 150 L 320 380 L 160 420 Z" fill="rgba(239,68,68,0.06)" />
+                        <path d="M 640 150 L 460 360 L 600 440 Z" fill="rgba(59,130,246,0.04)" />
+                        <path d="M 230 380 L 440 240 L 560 290 Z" fill="rgba(16,185,129,0.04)" />
+                        
+                        <!-- Network Connection Lines -->
+                        <path d="M 190 150 L 320 220" stroke="#3b82f6" stroke-width="2.5" fill="none" opacity="0.9"/>
+                        <path d="M 480 250 L 620 250 L 800 200" stroke="#3b82f6" stroke-width="2.5" fill="none" opacity="0.9"/>
+                    </svg>
+
+                    <!-- Central NVR Core -->
+                    <div class="z-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                        <div class="w-32 h-16 bg-[#0a0f1c] border border-slate-700/60 rounded-lg shadow-[0_10px_20px_rgba(0,0,0,0.8)] flex flex-col items-center justify-center relative transition-colors duration-500 group-hover:border-blue-500/50">
+                            <span class="text-[8px] font-mono text-slate-400 tracking-widest uppercase mb-2">NVR-CORE-01</span>
+                            <div class="flex space-x-1.5">
+                                <div class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_#ef4444]"></div>
+                                <div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                                <div class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
+                            </div>
+                        </div>
+                        <span class="text-[7px] font-bold text-slate-500 uppercase tracking-widest mt-3">Isolated NVR Core</span>
+                    </div>
+
+                    <!-- Camera Nodes -->
+                    <!-- Top Left: Red -->
+                    <div class="absolute top-[18%] left-[12%] flex flex-col items-center">
+                        <div class="w-12 h-12 bg-[#0d1322] border border-slate-700/60 rounded-2xl flex items-center justify-center z-10 relative">
+                            <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        </div>
+                        <span class="text-[8px] text-slate-500 font-mono mt-3 font-bold uppercase tracking-tight">ENTRY_GATE_4K</span>
+                    </div>
+
+                    <!-- Top Right: Blue -->
+                    <div class="absolute top-[16%] right-[10%] flex flex-col items-center">
+                        <div class="w-12 h-12 bg-[#0d1322] border border-slate-700/60 rounded-2xl flex items-center justify-center z-10 relative">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        </div>
+                        <span class="text-[8px] text-slate-500 font-mono mt-3 font-bold uppercase tracking-tight">PERIMETER_SOUTH</span>
+                    </div>
+
+                    <!-- Bottom Left: Green -->
+                    <div class="absolute bottom-[22%] left-[22%] flex flex-col items-center">
+                        <div class="w-12 h-12 bg-[#0d1322] border border-slate-700/60 rounded-2xl flex items-center justify-center z-10 relative">
+                            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        </div>
+                        <span class="text-[8px] text-slate-500 font-mono mt-3 font-bold uppercase tracking-tight">KITCHEN_AI_HUMAN</span>
+                    </div>
+
+                </div>
+                
+                <!-- Text Overlay -->
+                <div class="px-8 pb-8 pt-4 relative z-10">
+                    <p class="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-1">Hardened Ecosystem</p>
+                    <h3 class="text-xl font-bold text-white tracking-tight">Isolated NVR Core</h3>
+                </div>
+            </div>
+
+            <div class="min-w-[50px] md:hidden"></div>
+        </div>
+    </section>

@@ -3,7 +3,8 @@ const path = require('path');
 
 const root = path.resolve(__dirname);
 const outDir = path.join(root, 'dist');
-const outIndex = path.join(outDir, 'index.html');
+const outDist = path.join(outDir, 'index.html');
+const outRoot = path.join(root, 'index.html');
 const configPath = path.join(root, 'src', 'config', 'site.json');
 const partialDir = path.join(root, 'src', 'partials');
 
@@ -40,10 +41,8 @@ function replaceTokens(html, cfg) {
   });
 }
 
-function build() {
-  const cfg = loadConfig();
+function assembleFromPartials() {
   let out = '';
-
   for (const p of partialOrder) {
     const ppath = path.join(partialDir, p);
     if (!fs.existsSync(ppath)) {
@@ -52,12 +51,39 @@ function build() {
     }
     out += fs.readFileSync(ppath, 'utf8') + '\n';
   }
+  return out;
+}
 
-  out = replaceTokens(out, cfg);
+function backupIfExists(target) {
+  if (!fs.existsSync(target)) return;
+  const ts = new Date().toISOString().replace(/[:.]/g, '-');
+  const bak = target + '.bak.' + ts;
+  fs.copyFileSync(target, bak);
+  console.log('Backed up', target, '->', bak);
+}
 
+function build() {
+  const cfg = loadConfig();
+
+  // Assemble HTML from partials
+  const assembled = replaceTokens(assembleFromPartials(), cfg);
+
+  // Ensure output dir
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(outIndex, out, 'utf8');
-  console.log('Built from partials ->', outIndex);
+
+  // Backup existing root index.html before overwrite
+  try {
+    backupIfExists(outRoot);
+  } catch (e) {
+    console.warn('Backup failed:', e.message);
+  }
+
+  // Write both dist and root index.html (single-file canonical output)
+  fs.writeFileSync(outDist, assembled, 'utf8');
+  fs.writeFileSync(outRoot, assembled, 'utf8');
+
+  console.log('Built single-file index.html at:', outRoot);
+  console.log('Also wrote dist output at:', outDist);
 }
 
 if (require.main === module) build();
