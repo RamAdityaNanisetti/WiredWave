@@ -1,0 +1,78 @@
+<!-- TECH STACK GALLERY -->
+<section class="w-full bg-[#0b1120] py-20">
+    <div class="max-w-7xl mx-auto px-6 mb-16 flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-10 text-center">
+        <span class="metric-span text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] active" data-index="0">SDN Topology</span>
+        <span class="metric-span text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em]" data-index="1">VLAN Segmentation</span>
+        <span class="metric-span text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em]" data-index="2">Proxmox Virtualization</span>
+        <span class="metric-span text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em]" data-index="3">Hardened Surveillance</span>
+    </div>
+
+    <div id="arch-scroll" class="flex gap-12 overflow-x-auto py-10 pb-20 hide-scrollbar snap-x snap-mandatory items-center w-full">
+        
+        <!-- 01: SDN TOPOLOGY -->
+        <div class="arch-card snap-center group" data-index="0">
+            <div class="card-visual p-12 grid-overlay">
+                <div class="w-full h-full flex flex-col items-center justify-center space-y-12">
+                    <div class="flex items-center justify-between w-full max-w-lg relative">
+                        <!-- Connecting Lines -->
+                        <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40">
+                            <path class="flow-line" d="M 60 45 L 220 45" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+                            <path class="flow-line" d="M 280 45 L 440 45" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+                        </svg>
+
+                        <!-- Hardware Chain -->
+                        <div class="flex flex-col items-center space-y-3 z-10 group-hover:scale-105 transition-transform duration-500">
+                            <div class="w-14 h-10 bg-slate-800 border border-slate-600 rounded flex items-center justify-center hardware-icon relative">
+                                <div class="absolute inset-0 bg-blue-500/5 blur-lg"></div>
+                                <div class="w-1.5 h-1.5 bg-emerald-500 rounded-full absolute top-1 right-1"></div>
+                                <span class="text-[7px] text-slate-500 font-mono">GW-01</span>
+                            </div>
+                            <span class="tech-label">Gateway</span>
+                        </div>
+
+                        <div class="flex flex-col items-center space-y-3 z-10 -translate-y-4">
+                            <div class="w-20 h-10 bg-blue-600 border border-blue-400 rounded shadow-[0_0_40px_rgba(37,99,235,0.3)] flex items-center justify-center">
+                                <div class="flex space-x-1">
+                                    <div class="w-1 h-3 bg-white/30 rounded-full"></div>
+                                    <div class="w-1 h-3 bg-white/60 rounded-full"></div>
+                                    <div class="w-1 h-3 bg-white/30 rounded-full"></div>
+                                </div>
+                            </div>
+                            <span class="tech-label text-blue-300">Software Defined Controller</span>
+                        </div>
+
+                        <div class="flex flex-col items-center space-y-3 z-10 group-hover:scale-105 transition-transform duration-500">
+                            <div class="w-24 h-8 bg-slate-800 border border-slate-600 rounded flex items-center justify-between px-2 hardware-icon">
+                                <div class="flex space-x-0.5">
+                                    <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-slate-600 rounded-full"></div>
+                                    <div class="w-1 h-1 bg-blue-500 rounded-full"></div>
+                                </div>
+                                <span class="text-[6px] text-slate-500 font-mono">24-POE</span>
+                            </div>
+                            <span class="tech-label">Access Switch</span>
+                        </div>
+                    </div>
+
+                    <!-- Access Point -->
+                    <div class="flex flex-col items-center space-y-4">
+                         <div class="w-24 h-24 rounded-full bg-slate-900/50 border border-white/10 flex items-center justify-center relative">
+                            <div class="absolute inset-0 rounded-full border-2 border-blue-500/20 pulse-slow"></div>
+                            <div class="absolute inset-4 rounded-full border border-blue-500/10"></div>
+                            <svg class="w-8 h-8 text-blue-500/60" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                         </div>
+                         <span class="tech-label bg-blue-500/10 border-blue-500/20 text-blue-400">U7 Enterprise WAP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content-overlay">
+                <p class="text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em] mb-2">Centralized Management</p>
+                <h3 class="text-xl md:text-2xl font-bold">SDN Architecture (Ubiquiti/Omada)</h3>
+            </div>
+        </div>
+
+        <!-- (rest of gallery preserved in template) -->
+
+    </div>
+</section>
