@@ -162,8 +162,8 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-[#0b1120]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-sm">W</div>
+            <div class="flex items-center space-x-3 flex-shrink-0">
+                <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-sm flex-shrink-0">W</div>
                 <span class="text-xl font-extrabold tracking-tighter uppercase">Wired<span class="text-blue-500">Wave</span></span>
             </div>
             
@@ -174,9 +174,19 @@
                 <a href="mailto:contact@wiredwave.in" class="btn-primary text-white px-6 py-2.5 rounded-md transition duration-300 shadow-lg shadow-blue-600/20">Contact Engineering</a>
             </div>
 
-            <button id="menu-toggle" class="md:hidden text-white p-2">
-                <i class="fas fa-bars text-xl"></i>
+            <button id="menu-toggle" class="md:hidden text-white p-2 flex-shrink-0 outline-none focus:outline-none transition-all duration-300 active:scale-95 hover:bg-white/5 rounded-lg" aria-label="Toggle Menu">
+                <svg id="menu-icon" class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path id="menu-path-1" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+                </svg>
             </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0b1120]/95 border-b border-white/5 px-6 py-8 space-y-6">
+            <a href="site-audit/" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Site Audits</a>
+            <a href="#solutions" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Solutions</a>
+            <a href="#process" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Resilience</a>
+            <a href="mailto:contact@wiredwave.in" class="block btn-primary text-center text-white px-6 py-3 rounded-md transition duration-300 shadow-lg shadow-blue-600/20">Contact Engineering</a>
         </div>
     </nav>
 
@@ -670,6 +680,46 @@
 
     <!-- Scripts -->
     <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuToggle && mobileMenu) {
+            const menuPath = document.getElementById('menu-path-1');
+            const hamburgerPath = "M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z";
+            const closePath = "M18.3 5.71a1 1 0 00-1.41 0L12 10.59 7.11 5.7a1 1 0 00-1.42 1.42L10.59 12l-4.9 4.89a1 1 0 001.42 1.42L12 13.41l4.89 4.9a1 1 0 001.42-1.42L13.41 12l4.89-4.89a1 1 0 000-1.4z";
+
+            const toggleMenu = (show) => {
+                const isHidden = show !== undefined ? !show : !mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden', isHidden);
+                if (menuPath) {
+                    menuPath.setAttribute('d', isHidden ? hamburgerPath : closePath);
+                }
+            };
+
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => toggleMenu(false));
+            });
+
+            // Close on click outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    toggleMenu(false);
+                }
+            });
+
+            // Close on Escape
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                    toggleMenu(false);
+                }
+            });
+        }
+
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];

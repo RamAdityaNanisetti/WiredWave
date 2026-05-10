@@ -14,7 +14,7 @@ This project uses a custom partial-based assembly system to generate a single-fi
 - `watch.js`: Development script that monitors changes and triggers rebuilds.
 - `index.html`: The generated canonical output (also found in `dist/`).
 
-### Build Process
+### Build Process (don't run this unless i explicitly ask for it)
 The build process (`npm run build`) performs the following steps:
 1. Loads configuration from `src/config/site.json`.
 2. Assembles partials from `src/partials/` in a specific order:

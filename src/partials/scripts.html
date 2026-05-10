@@ -1,5 +1,45 @@
     <!-- Scripts -->
     <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuToggle && mobileMenu) {
+            const menuPath = document.getElementById('menu-path-1');
+            const hamburgerPath = "M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z";
+            const closePath = "M18.3 5.71a1 1 0 00-1.41 0L12 10.59 7.11 5.7a1 1 0 00-1.42 1.42L10.59 12l-4.9 4.89a1 1 0 001.42 1.42L12 13.41l4.89 4.9a1 1 0 001.42-1.42L13.41 12l4.89-4.89a1 1 0 000-1.4z";
+
+            const toggleMenu = (show) => {
+                const isHidden = show !== undefined ? !show : !mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden', isHidden);
+                if (menuPath) {
+                    menuPath.setAttribute('d', isHidden ? hamburgerPath : closePath);
+                }
+            };
+
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => toggleMenu(false));
+            });
+
+            // Close on click outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    toggleMenu(false);
+                }
+            });
+
+            // Close on Escape
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                    toggleMenu(false);
+                }
+            });
+        }
+
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
