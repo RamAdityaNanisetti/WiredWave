@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --primary-bg: #0b1120;
     --accent-blue: #3b82f6;
