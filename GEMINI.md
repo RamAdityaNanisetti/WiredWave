@@ -28,8 +28,7 @@ The build process (`npm run build`) performs the following steps:
    - `footer.html`
    - `scripts.html`
 3. Replaces tokens in the form `{{ key.path }}` with values from `site.json`.
-4. Backs up the existing root `index.html`.
-5. Writes the final HTML to both `dist/index.html` and the root `index.html`.
+4. Writes the final HTML to both `dist/index.html` and the root `index.html`.
 
 ## Development Workflows
 
@@ -54,4 +53,3 @@ The project uses a combination of `watch.js` and `browser-sync` for a seamless d
 ## Conventions
 - **Partials:** Keep partials focused and modular.
 - **Tokens:** Prefer using tokens in `site.json` for frequently changed text (emails, company name, etc.).
-- **Backups:** The build script automatically creates timestamped backups of `index.html`. Clean these up periodically if they accumulate.

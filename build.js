@@ -16,6 +16,7 @@ const partialOrder = [
   'tech_gallery.html',
   'solutions.html',
   'process.html',
+  'audit.html',
   'footer.html',
   'scripts.html'
 ];
@@ -82,13 +83,50 @@ function build() {
   fs.writeFileSync(outDist, assembled, 'utf8');
   fs.writeFileSync(outRoot, assembled, 'utf8');
 
-  // Copy site-audit if it exists
-  const auditSrc = path.join(root, 'site-audit');
-  const auditDist = path.join(outDir, 'site-audit');
-  if (fs.existsSync(auditSrc)) {
-    fs.mkdirSync(auditDist, { recursive: true });
-    copyRecursiveSync(auditSrc, auditDist);
-    console.log('Copied site-audit to dist');
+  // Copy assets to dist to ensure complete distributable
+  const assetsSrc = path.join(root, 'assets');
+  const assetsDist = path.join(outDir, 'assets');
+  if (fs.existsSync(assetsSrc)) {
+    if (!fs.existsSync(assetsDist)) fs.mkdirSync(assetsDist, { recursive: true });
+    copyRecursiveSync(assetsSrc, assetsDist);
+    console.log('Copied assets to dist');
+  }
+
+  // Generate standalone audit page from the audit partial
+  const auditPartialPath = path.join(partialDir, 'audit.html');
+  if (fs.existsSync(auditPartialPath)) {
+    const auditContent = replaceTokens(fs.readFileSync(auditPartialPath, 'utf8'), cfg);
+    const standaloneAudit = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Audit | WiredWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #0b1120; margin: 0; padding: 0; }
+        img { max-width: 100%; height: auto; }
+        /* Override relative paths for the subdirectory index.html */
+        #site-audit a[href="site-audit/index.html"] { display: none; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <span class="text-white font-bold tracking-tight">WIREDWAVE <span class="text-blue-500">AUDIT</span></span>
+            <a href="../index.html" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                <i class="fas fa-arrow-left"></i> BACK TO SITE
+            </a>
+        </div>
+    </div>
+    ${auditContent.replace(/assets\/images\/audit\//g, '../assets/images/audit/')}
+</body>
+</html>`;
+    const auditDistDir = path.join(outDir, 'site-audit');
+    fs.mkdirSync(auditDistDir, { recursive: true });
+    fs.writeFileSync(path.join(auditDistDir, 'index.html'), standaloneAudit, 'utf8');
+    console.log('Generated standalone site-audit/index.html');
   }
 
   console.log('Built single-file index.html at:', outRoot);
