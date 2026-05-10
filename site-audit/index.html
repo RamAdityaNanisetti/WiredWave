@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Audit | WiredWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #0b1120;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #2dd4bf;
+        } 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            height: auto;
+        }
+        .slide.active {
+            display: block;
+        }
+        .btn-nav {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+        .btn-nav:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+    
+    <div class="max-w-6xl w-full flex flex-col gap-6">
+        <!-- Header -->
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white">Site Audit Report</h1>
+                <p class="text-slate-400 mt-1">Detailed infrastructure analysis & findings</p>
+            </div>
+            <a href="../index.html" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i>
+                Back to Site
+            </a>
+        </div>
+
+        <!-- Slide Container -->
+        <div class="relative bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+            <div id="slides-container">
+                <!-- Slides will be injected here -->
+                <img src="images/image1.png" class="slide active" alt="Slide 1">
+                <img src="images/image2.png" class="slide" alt="Slide 2">
+                <img src="images/image3.png" class="slide" alt="Slide 3">
+                <img src="images/image4.png" class="slide" alt="Slide 4">
+                <img src="images/image5.png" class="slide" alt="Slide 5">
+                <img src="images/image6.png" class="slide" alt="Slide 6">
+                <img src="images/image7.png" class="slide" alt="Slide 7">
+                <img src="images/image8.png" class="slide" alt="Slide 8">
+                <img src="images/image9.png" class="slide" alt="Slide 9">
+                <img src="images/image10.png" class="slide" alt="Slide 10">
+                <img src="images/image11.png" class="slide" alt="Slide 11">
+                <img src="images/image12.png" class="slide" alt="Slide 12">
+                <img src="images/image13.png" class="slide" alt="Slide 13">
+                <img src="images/image14.png" class="slide" alt="Slide 14">
+                <img src="images/image15.png" class="slide" alt="Slide 15">
+            </div>
+
+            <!-- Controls -->
+            <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                <button onclick="prevSlide()" class="btn-nav w-10 h-10 rounded-full flex items-center justify-center text-white focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-4">
+                <button onclick="nextSlide()" class="btn-nav w-10 h-10 rounded-full flex items-center justify-center text-white focus:outline-none">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer / Pagination -->
+        <div class="flex justify-between items-center text-slate-500 text-sm">
+            <div id="slide-number">Slide 1 of 15</div>
+            <div class="flex gap-2">
+                <button onclick="prevSlide()" class="hover:text-white">Previous</button>
+                <span>|</span>
+                <button onclick="nextSlide()" class="hover:text-white">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slideNumber = document.getElementById('slide-number');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            slideNumber.innerText = `Slide ${currentSlide + 1} of ${slides.length}`;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>

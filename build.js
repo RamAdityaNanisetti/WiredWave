@@ -82,8 +82,29 @@ function build() {
   fs.writeFileSync(outDist, assembled, 'utf8');
   fs.writeFileSync(outRoot, assembled, 'utf8');
 
+  // Copy site-audit if it exists
+  const auditSrc = path.join(root, 'site-audit');
+  const auditDist = path.join(outDir, 'site-audit');
+  if (fs.existsSync(auditSrc)) {
+    fs.mkdirSync(auditDist, { recursive: true });
+    copyRecursiveSync(auditSrc, auditDist);
+    console.log('Copied site-audit to dist');
+  }
+
   console.log('Built single-file index.html at:', outRoot);
   console.log('Also wrote dist output at:', outDist);
+}
+
+function copyRecursiveSync(src, dest) {
+  const stats = fs.statSync(src);
+  if (stats.isDirectory()) {
+    if (!fs.existsSync(dest)) fs.mkdirSync(dest);
+    fs.readdirSync(src).forEach(childItemName => {
+      copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
+    });
+  } else {
+    fs.copyFileSync(src, dest);
+  }
 }
 
 if (require.main === module) build();
