@@ -55,14 +55,6 @@ function assembleFromPartials() {
   return out;
 }
 
-function backupIfExists(target) {
-  if (!fs.existsSync(target)) return;
-  const ts = new Date().toISOString().replace(/[:.]/g, '-');
-  const bak = target + '.bak.' + ts;
-  fs.copyFileSync(target, bak);
-  console.log('Backed up', target, '->', bak);
-}
-
 function build() {
   const cfg = loadConfig();
 
@@ -71,13 +63,6 @@ function build() {
 
   // Ensure output dir
   fs.mkdirSync(outDir, { recursive: true });
-
-  // Backup existing root index.html before overwrite
-  try {
-    backupIfExists(outRoot);
-  } catch (e) {
-    console.warn('Backup failed:', e.message);
-  }
 
   // Write both dist and root index.html (single-file canonical output)
   fs.writeFileSync(outDist, assembled, 'utf8');

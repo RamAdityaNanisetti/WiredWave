@@ -53,3 +53,4 @@ The project uses a combination of `watch.js` and `browser-sync` for a seamless d
 ## Conventions
 - **Partials:** Keep partials focused and modular.
 - **Tokens:** Prefer using tokens in `site.json` for frequently changed text (emails, company name, etc.).
+- **No Backups:** Do not create backup files during the build process; the source of truth is in `src/`.
