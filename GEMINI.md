@@ -11,6 +11,7 @@ This project uses a custom partial-based assembly system to generate a single-fi
 - `src/config/site.json`: Global configuration and content tokens.
 - `assets/`: Static assets (CSS, JS, Images).
 - `build.js`: The build engine that assembles partials and replaces tokens.
+- `watch.js`: Development script that monitors changes and triggers rebuilds.
 - `index.html`: The generated canonical output (also found in `dist/`).
 
 ### Build Process
@@ -32,14 +33,22 @@ The build process (`npm run build`) performs the following steps:
 
 ## Development Workflows
 
+### Live Development
+The project uses a combination of `watch.js` and `browser-sync` for a seamless development experience.
+- **`npm run dev`**: The recommended command for development. It starts the watch script and a live-reloading server on port 8000.
+- **Auto-Rebuild**: Any changes to `src/` (partials, config) or `assets/` (styles, scripts) will automatically trigger a rebuild.
+- **Live Reload**: Browser-Sync monitors `dist/index.html` and `assets/` to refresh the browser automatically upon changes.
+
 ### Modifying Content
 - **HTML Structure:** Edit files in `src/partials/`.
 - **Global Data:** Edit `src/config/site.json`. Use `{{ token.path }}` in partials to reference data.
-- **Styling:** Edit `assets/css/main.css`. The project uses Tailwind CSS utility classes.
+- **Styling:** Edit `assets/css/main.css` or use Tailwind CSS utility classes directly in partials. The project includes Tailwind via CDN in `head.html`.
 
 ### Commands
-- `npm run build`: Rebuild the site.
-- `npm run start`: Serve the `dist/` folder locally on port 8000.
+- `npm run dev`: (Recommended) Start watch mode and live-reloading server.
+- `npm run build`: Perform a one-time build of the site.
+- `npm run watch`: Start only the watch script (no server).
+- `npm run start`: Serve the `dist/` folder locally on port 8000 using browser-sync.
 - `npm run verify`: Check for differences between the root `index.html` and `dist/index.html`.
 
 ## Conventions

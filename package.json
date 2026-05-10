@@ -4,7 +4,12 @@
   "private": true,
   "scripts": {
     "build": "node build.js",
-    "start": "cd dist && python3 -m http.server 8000 --bind 127.0.0.1",
+    "watch": "node watch.js",
+    "dev": "node watch.js & browser-sync start --server 'dist' --files 'dist/*.html, assets/**/*' --port 8000 --no-notify",
+    "start": "browser-sync start --server 'dist' --port 8000 --no-open",
     "verify": "diff -u index.html dist/index.html || true"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4"
   }
 }
