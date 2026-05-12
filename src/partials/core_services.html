@@ -1,0 +1,156 @@
+<!-- Core Services Section -->
+<section id="core-services" class="bg-slate-950 py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">Core Services</h2>
+            <div class="h-1 w-20 bg-blue-600 mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Tab Navigation Bar -->
+        <div class="flex justify-center mb-12">
+            <div class="inline-flex flex-wrap md:flex-nowrap bg-slate-900/50 backdrop-blur-md border border-slate-800 p-1.5 rounded-2xl overflow-x-auto no-scrollbar max-w-full">
+                <button 
+                    onclick="switchService('network')" 
+                    data-service="network"
+                    class="service-tab px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap active-tab text-white bg-blue-600 shadow-lg shadow-blue-900/20"
+                >
+                    Network Setup
+                </button>
+                <button 
+                    onclick="switchService('nas')" 
+                    data-service="nas"
+                    class="service-tab px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/50"
+                >
+                    Local AI & NAS
+                </button>
+                <button 
+                    onclick="switchService('virtualization')" 
+                    data-service="virtualization"
+                    class="service-tab px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/50"
+                >
+                    Virtualization
+                </button>
+                <button 
+                    onclick="switchService('surveillance')" 
+                    data-service="surveillance"
+                    class="service-tab px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/50"
+                >
+                    Secure Surveillance
+                </button>
+                <button 
+                    onclick="switchService('audit')" 
+                    data-service="audit"
+                    class="service-tab px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap text-slate-400 hover:text-white hover:bg-slate-800/50"
+                >
+                    Infrastructure Audit
+                </button>
+            </div>
+        </div>
+
+        <!-- Service Content Display Area -->
+        <div class="bg-slate-900/30 border border-slate-800 rounded-3xl p-4 md:p-8 overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+                        <img 
+                            id="service-image" 
+                            src="assets/images/services/NetworkInfra&Setup.png" 
+                            alt="Core Services" 
+                            class="relative rounded-2xl w-full object-cover shadow-2xl border border-slate-700/50"
+                        >
+                    </div>
+                </div>
+                <div class="lg:col-span-5">
+                    <h3 id="service-title" class="text-2xl md:text-3xl font-bold text-white mb-6 leading-tight">
+                        Network Design & Setup
+                    </h3>
+                    <p id="service-desc" class="text-slate-400 text-lg leading-relaxed mb-8">
+                        Professional network architecture design and implementation. Specializing in high-performance wired-first networks, VLAN segmentation, and enterprise-grade hardware (TP-Link Omada/ Ubiquiti Unifi)
+                    </p>
+                    <a href="#contact" class="inline-flex items-center gap-2 text-blue-500 font-bold hover:text-blue-400 transition-colors">
+                        Learn more about this service <i class="fas fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const services = {
+        'network': {
+            title: 'Network Design & Setup',
+            description: 'Professional network architecture design and implementation. Specializing in high-performance wired-first networks, VLAN segmentation, and enterprise-grade hardware (TP-Link Omada/ Ubiquiti Unifi)',
+            image: 'assets/images/services/NetworkInfra&Setup.png'
+        },
+        'nas': {
+            title: 'Local AI Agents, NAS & VPN Solutions',
+            description: 'Secure, private infrastructure for data storage and AI. Setup of local AI/ML agents, Network Attached Storage (NAS) for data redundancy, and WireGuard/OpenVPN for secure remote access.',
+            image: 'assets/images/services/VPN1.png'
+        },
+        'virtualization': {
+            title: 'Virtualization & Home Lab Setup',
+            description: 'Deployment of Proxmox/Docker environments for personal or business use. Consolidate hardware, run local services, and build a resilient lab environment.',
+            image: 'assets/images/services/Virtualization.png'
+        },
+        'surveillance': {
+            title: 'Secure IP CCTV Surveillance',
+            description: 'End-to-end deployment of IP camera systems. Focused on network security, isolated surveillance VLANs, and high-fidelity local/remote monitoring.',
+            image: 'assets/images/services/IPcamCCTV.png'
+        },
+        'audit': {
+            title: 'Network/Infrastructure Reliability Audit',
+            description: 'Comprehensive SRE-level audit of your current network and infrastructure. We identify bottlenecks, security gaps, and single points of failure to ensure maximum uptime.',
+            image: 'assets/images/services/SRE_Audit.png'
+        }
+    };
+
+    function switchService(serviceId) {
+        const service = services[serviceId];
+        if (!service) return;
+
+        // Update content with fade effect
+        const img = document.getElementById('service-image');
+        const title = document.getElementById('service-title');
+        const desc = document.getElementById('service-desc');
+        
+        // Simple fade out
+        img.style.opacity = '0.5';
+        title.style.opacity = '0.5';
+        desc.style.opacity = '0.5';
+        
+        setTimeout(() => {
+            img.src = service.image;
+            title.innerText = service.title;
+            desc.innerText = service.description;
+            img.style.opacity = '1';
+            title.style.opacity = '1';
+            desc.style.opacity = '1';
+        }, 150);
+
+        // Update tabs
+        document.querySelectorAll('.service-tab').forEach(tab => {
+            if (tab.getAttribute('data-service') === serviceId) {
+                tab.classList.add('text-white', 'bg-blue-600', 'shadow-lg', 'shadow-blue-900/20');
+                tab.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-slate-800/50');
+            } else {
+                tab.classList.remove('text-white', 'bg-blue-600', 'shadow-lg', 'shadow-blue-900/20');
+                tab.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-slate-800/50');
+            }
+        });
+    }
+</script>
+
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    #service-image, #service-title {
+        transition: opacity 0.2s ease-in-out;
+    }
+</style>

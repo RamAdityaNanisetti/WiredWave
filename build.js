@@ -13,6 +13,8 @@ const partialOrder = [
   'body-start.html',
   'nav.html',
   'hero.html',
+  'who_we_serve.html',
+  'core_services.html',
   'tech_gallery.html',
   'solutions.html',
   'process.html',
