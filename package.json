@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node build.js",
     "watch": "node watch.js",
-    "dev": "node watch.js & browser-sync start --server 'dist' --files 'dist/*.html, assets/**/*' --port 8000 --no-notify",
+    "dev": "node build.js && (node watch.js & browser-sync start --server 'dist' --files 'dist/**/*' --port 8000 --no-notify)",
     "start": "browser-sync start --server 'dist' --port 8000 --no-open",
     "verify": "diff -u index.html dist/index.html || true"
   },
