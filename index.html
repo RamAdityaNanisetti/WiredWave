@@ -124,9 +124,21 @@
 
         header, section, footer { position: relative; z-index: 10; }
 
-        /* Engineered Excellence carousel */
+        /* Engineered Excellence carousel — infinite reel */
         .ee-root { position: relative; }
         #ee-viewport-wrap { position: relative; }
+        #ee-viewport.ee-reel-viewport {
+            --ee-card-w: min(92vw, 36rem);
+            padding-inline: max(0.5rem, calc(50% - var(--ee-card-w) / 2 - 1.5rem));
+            scroll-snap-type: x mandatory;
+            overscroll-behavior-x: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+        #ee-viewport.ee-reel-viewport .ee-card {
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            -webkit-scroll-snap-stop: always;
+        }
         .ee-nav {
             position: absolute;
             top: 50%;
@@ -827,7 +839,7 @@
                 <div class="relative" id="ee-viewport-wrap">
                     <div
                         id="ee-viewport"
-                        class="ee-viewport flex gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 hide-scrollbar px-1 md:px-[max(1rem,calc(50vw-18rem))]"
+                        class="ee-viewport ee-reel-viewport flex gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 hide-scrollbar"
                         tabindex="0"
                         role="region"
                         aria-roledescription="carousel"
@@ -1144,7 +1156,7 @@
             });
         }
 
-        /* Engineered Excellence carousel */
+        /* Engineered Excellence carousel — infinite round-robin reel */
         (function initEngineeredExcellenceCarousel() {
             const AUTO_MS = 5000;
             const root = document.getElementById('ee-root');
@@ -1154,11 +1166,117 @@
             const btnNext = document.getElementById('ee-next');
             if (!root || !viewport || !dotsHost || !btnPrev || !btnNext) return;
 
-            const cards = () => Array.from(viewport.querySelectorAll('.ee-card'));
-            let list = cards();
-            if (!list.length) {
+            const originals = Array.from(viewport.querySelectorAll('.ee-card'));
+            const slideCount = originals.length;
+            if (!slideCount) {
                 root.closest('section')?.classList.add('hidden');
                 return;
+            }
+
+            let reelReady = false;
+            let teleporting = false;
+
+            if (slideCount >= 2) {
+                const first = originals[0];
+                const last = originals[slideCount - 1];
+                const clonePrev = last.cloneNode(true);
+                clonePrev.classList.add('ee-clone', 'ee-clone-prev');
+                clonePrev.setAttribute('aria-hidden', 'true');
+                const cloneNext = first.cloneNode(true);
+                cloneNext.classList.add('ee-clone', 'ee-clone-next');
+                cloneNext.setAttribute('aria-hidden', 'true');
+                viewport.insertBefore(clonePrev, first);
+                viewport.appendChild(cloneNext);
+                reelReady = true;
+            }
+
+            function closestDomIndex() {
+                const viewMid = viewport.scrollLeft + viewport.clientWidth / 2;
+                let best = 0;
+                let bestDist = Infinity;
+                for (let d = 0; d < viewport.children.length; d++) {
+                    const el = viewport.children[d];
+                    const mid = el.offsetLeft + el.offsetWidth / 2;
+                    const dist = Math.abs(mid - viewMid);
+                    if (dist < bestDist) {
+                        bestDist = dist;
+                        best = d;
+                    }
+                }
+                return best;
+            }
+
+            function logicalFromDom(d) {
+                const el = viewport.children[d];
+                if (!el) return 0;
+                if (el.classList.contains('ee-clone-prev')) return slideCount - 1;
+                if (el.classList.contains('ee-clone-next')) return 0;
+                return d - 1;
+            }
+
+            function currentLogical() {
+                return logicalFromDom(closestDomIndex());
+            }
+
+            function scrollToDom(domIndex, smooth) {
+                const el = viewport.children[domIndex];
+                if (!el) return;
+                const left = el.offsetLeft - (viewport.clientWidth - el.offsetWidth) / 2;
+                const x = Math.max(0, left);
+                if (!smooth) {
+                    teleporting = true;
+                    const prevSnap = viewport.style.scrollSnapType;
+                    viewport.style.scrollSnapType = 'none';
+                    viewport.style.scrollBehavior = 'auto';
+                    viewport.scrollLeft = x;
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            viewport.style.scrollSnapType = prevSnap || '';
+                            viewport.style.scrollBehavior = '';
+                            teleporting = false;
+                        });
+                    });
+                } else {
+                    viewport.scrollTo({ left: x, behavior: 'smooth' });
+                }
+            }
+
+            function handleInfiniteTeleport() {
+                if (!reelReady || teleporting) return;
+                const d = closestDomIndex();
+                const el = viewport.children[d];
+                if (!el) return;
+                if (el.classList.contains('ee-clone-next')) {
+                    scrollToDom(1, false);
+                } else if (el.classList.contains('ee-clone-prev')) {
+                    scrollToDom(slideCount, false);
+                }
+            }
+
+            function goToLogical(i, smooth) {
+                const idx = ((i % slideCount) + slideCount) % slideCount;
+                scrollToDom(idx + 1, smooth);
+                syncDots(idx);
+            }
+
+            function navigateNext(smooth) {
+                if (slideCount < 2) return;
+                const i = currentLogical();
+                if (reelReady && i >= slideCount - 1) {
+                    scrollToDom(slideCount + 1, smooth);
+                } else if (i < slideCount - 1) {
+                    scrollToDom(i + 2, smooth);
+                }
+            }
+
+            function navigatePrev(smooth) {
+                if (slideCount < 2) return;
+                const i = currentLogical();
+                if (reelReady && i === 0) {
+                    scrollToDom(0, smooth);
+                } else if (i > 0) {
+                    scrollToDom(i, smooth);
+                }
             }
 
             let autoDisabled = false;
@@ -1187,43 +1305,14 @@
                 if (!shouldRunAuto()) return;
                 timerId = setInterval(() => {
                     if (!shouldRunAuto()) return;
-                    const n = cards().length;
-                    if (n < 2) return;
-                    const next = (currentIndex() + 1) % n;
-                    goToIndex(next, true);
+                    if (slideCount < 2) return;
+                    navigateNext(true);
                 }, AUTO_MS);
             }
 
             function disableAutoPermanently() {
                 autoDisabled = true;
                 stopAutoTimer();
-            }
-
-            function currentIndex() {
-                list = cards();
-                const n = list.length;
-                if (!n) return 0;
-                const viewMid = viewport.scrollLeft + viewport.clientWidth / 2;
-                let best = 0;
-                let bestDist = Infinity;
-                list.forEach((card, i) => {
-                    const mid = card.offsetLeft + card.offsetWidth / 2;
-                    const d = Math.abs(mid - viewMid);
-                    if (d < bestDist) {
-                        bestDist = d;
-                        best = i;
-                    }
-                });
-                return best;
-            }
-
-            function goToIndex(i, smooth) {
-                list = cards();
-                const card = list[i];
-                if (!card) return;
-                const left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
-                viewport.scrollTo({ left: Math.max(0, left), behavior: smooth ? 'smooth' : 'auto' });
-                syncDots(i);
             }
 
             function syncDots(active) {
@@ -1236,8 +1325,7 @@
 
             function buildDots() {
                 dotsHost.innerHTML = '';
-                list = cards();
-                list.forEach((_, i) => {
+                for (let i = 0; i < slideCount; i++) {
                     const dot = document.createElement('button');
                     dot.type = 'button';
                     dot.className = 'ee-dot';
@@ -1245,33 +1333,45 @@
                     dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
                     dot.addEventListener('click', () => {
                         disableAutoPermanently();
-                        goToIndex(i, true);
+                        goToLogical(i, true);
                     });
                     dotsHost.appendChild(dot);
-                });
-                syncDots(currentIndex());
+                }
+                syncDots(currentLogical());
             }
 
             let scrollTick = null;
+            let settleTimer = null;
+
+            function onScrollUpdate() {
+                syncDots(currentLogical());
+            }
+
             viewport.addEventListener('scroll', () => {
                 if (scrollTick) cancelAnimationFrame(scrollTick);
                 scrollTick = requestAnimationFrame(() => {
                     scrollTick = null;
-                    syncDots(currentIndex());
+                    onScrollUpdate();
+                    clearTimeout(settleTimer);
+                    settleTimer = setTimeout(() => {
+                        handleInfiniteTeleport();
+                        onScrollUpdate();
+                    }, 120);
                 });
+            }, { passive: true });
+
+            viewport.addEventListener('scrollend', () => {
+                handleInfiniteTeleport();
+                onScrollUpdate();
             }, { passive: true });
 
             btnPrev.addEventListener('click', () => {
                 disableAutoPermanently();
-                const n = cards().length;
-                const i = (currentIndex() - 1 + n) % n;
-                goToIndex(i, true);
+                navigatePrev(true);
             });
             btnNext.addEventListener('click', () => {
                 disableAutoPermanently();
-                const n = cards().length;
-                const i = (currentIndex() + 1) % n;
-                goToIndex(i, true);
+                navigateNext(true);
             });
 
             root.addEventListener('mouseenter', () => {
@@ -1289,32 +1389,38 @@
                 if (hoverInside) hadClickWhileHovered = true;
             }, true);
 
-            viewport.querySelectorAll('.ee-card').forEach((card) => {
-                card.addEventListener('touchstart', () => {
+            viewport.addEventListener('touchstart', (e) => {
+                if (e.target.closest('.ee-card')) {
                     touchActiveOnSlide = true;
                     stopAutoTimer();
-                }, { passive: true });
-                card.addEventListener('touchend', () => {
-                    if (touchResumeTimer) clearTimeout(touchResumeTimer);
-                    touchResumeTimer = setTimeout(() => {
-                        touchActiveOnSlide = false;
-                        touchResumeTimer = null;
-                        if (!autoDisabled && !hoverInside) startAutoTimer();
-                    }, 80);
-                }, { passive: true });
-                card.addEventListener('touchcancel', () => {
-                    if (touchResumeTimer) clearTimeout(touchResumeTimer);
-                    touchResumeTimer = setTimeout(() => {
-                        touchActiveOnSlide = false;
-                        touchResumeTimer = null;
-                        if (!autoDisabled && !hoverInside) startAutoTimer();
-                    }, 80);
-                }, { passive: true });
-            });
+                }
+            }, { passive: true });
+            viewport.addEventListener('touchend', () => {
+                if (touchResumeTimer) clearTimeout(touchResumeTimer);
+                touchResumeTimer = setTimeout(() => {
+                    touchActiveOnSlide = false;
+                    touchResumeTimer = null;
+                    if (!autoDisabled && !hoverInside) startAutoTimer();
+                }, 100);
+            }, { passive: true });
+            viewport.addEventListener('touchcancel', () => {
+                if (touchResumeTimer) clearTimeout(touchResumeTimer);
+                touchResumeTimer = setTimeout(() => {
+                    touchActiveOnSlide = false;
+                    touchResumeTimer = null;
+                    if (!autoDisabled && !hoverInside) startAutoTimer();
+                }, 100);
+            }, { passive: true });
 
             buildDots();
+            if (reelReady) {
+                scrollToDom(1, false);
+            }
             startAutoTimer();
-            requestAnimationFrame(() => syncDots(currentIndex()));
+            requestAnimationFrame(() => {
+                handleInfiniteTeleport();
+                onScrollUpdate();
+            });
         })();
 
         const canvas = document.getElementById('network-canvas');

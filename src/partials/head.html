@@ -124,9 +124,21 @@
 
         header, section, footer { position: relative; z-index: 10; }
 
-        /* Engineered Excellence carousel */
+        /* Engineered Excellence carousel — infinite reel */
         .ee-root { position: relative; }
         #ee-viewport-wrap { position: relative; }
+        #ee-viewport.ee-reel-viewport {
+            --ee-card-w: min(92vw, 36rem);
+            padding-inline: max(0.5rem, calc(50% - var(--ee-card-w) / 2 - 1.5rem));
+            scroll-snap-type: x mandatory;
+            overscroll-behavior-x: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+        #ee-viewport.ee-reel-viewport .ee-card {
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+            -webkit-scroll-snap-stop: always;
+        }
         .ee-nav {
             position: absolute;
             top: 50%;
