@@ -168,7 +168,7 @@
             </a>
             
             <div class="hidden md:flex items-center space-x-8 text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300">
-                <a href="#site-audit" class="hover:text-white transition">Site Audits</a>
+                <a href="site-audit/index.html" class="hover:text-white transition">Site Audits</a>
                 <a href="#solutions" class="hover:text-white transition">Solutions</a>
                 <a href="#process" class="hover:text-white transition">Resilience</a>
                 <a href="#contact" class="btn-primary text-white px-6 py-2.5 rounded-md transition duration-300 shadow-lg shadow-blue-600/20">Contact Engineering</a>
@@ -183,7 +183,7 @@
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#0b1120]/95 border-b border-white/5 px-6 py-8 space-y-6">
-            <a href="#site-audit" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Site Audits</a>
+            <a href="site-audit/index.html" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Site Audits</a>
             <a href="#solutions" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Solutions</a>
             <a href="#process" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Resilience</a>
             <a href="#contact" class="block btn-primary text-center text-white px-6 py-3 rounded-md transition duration-300 shadow-lg shadow-blue-600/20">Contact Engineering</a>
@@ -936,108 +936,6 @@
             </div>
         </div>
     </section>
-
-<section id="site-audit" class="py-20 bg-slate-900 text-white relative overflow-hidden">
-    <!-- Background Accents -->
-    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 blur-[100px] -mr-48 -mt-48 rounded-full"></div>
-    <div class="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/10 blur-[100px] -ml-48 -mb-48 rounded-full"></div>
-
-    <div class="max-w-6xl mx-auto px-4 relative z-10">
-        <!-- Header -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
-            <div>
-                <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">Site Audit Report</h2>
-                <p class="text-slate-400 text-lg max-w-2xl">Comprehensive infrastructure analysis and findings for WiredWave network optimization.</p>
-            </div>
-            <a href="site-audit/index.html" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-800 border border-slate-700 hover:bg-slate-700 rounded-lg transition-all text-sm font-medium">
-                <i class="fas fa-external-link-alt"></i>
-                Full Presentation
-            </a>
-        </div>
-
-        <!-- Slide Container -->
-        <div class="relative bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-            <div id="audit-slides-container" class="min-h-[300px] md:min-h-[500px] lg:min-h-[600px] flex items-center justify-center">
-                <img src="assets/images/audit/image1.png" class="audit-slide active" alt="Slide 1">
-                <img src="assets/images/audit/image2.png" class="audit-slide" alt="Slide 2">
-                <img src="assets/images/audit/image3.png" class="audit-slide" alt="Slide 3">
-                <img src="assets/images/audit/image4.png" class="audit-slide" alt="Slide 4">
-                <img src="assets/images/audit/image5.png" class="audit-slide" alt="Slide 5">
-                <img src="assets/images/audit/image6.png" class="audit-slide" alt="Slide 6">
-                <img src="assets/images/audit/image7.png" class="audit-slide" alt="Slide 7">
-                <img src="assets/images/audit/image8.png" class="audit-slide" alt="Slide 8">
-                <img src="assets/images/audit/image9.png" class="audit-slide" alt="Slide 9">
-                <img src="assets/images/audit/image10.png" class="audit-slide" alt="Slide 10">
-                <img src="assets/images/audit/image11.png" class="audit-slide" alt="Slide 11">
-                <img src="assets/images/audit/image12.png" class="audit-slide" alt="Slide 12">
-                <img src="assets/images/audit/image13.png" class="audit-slide" alt="Slide 13">
-                <img src="assets/images/audit/image14.png" class="audit-slide" alt="Slide 14">
-                <img src="assets/images/audit/image15.png" class="audit-slide" alt="Slide 15">
-            </div>
-
-            <!-- Controls -->
-            <div class="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-6">
-                <button onclick="prevAuditSlide()" class="audit-btn-nav w-12 h-12 rounded-full flex items-center justify-center text-white bg-slate-900/80 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 transition-all focus:outline-none">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-            </div>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-4 md:pr-6">
-                <button onclick="nextAuditSlide()" class="audit-btn-nav w-12 h-12 rounded-full flex items-center justify-center text-white bg-slate-900/80 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 transition-all focus:outline-none">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Footer / Pagination -->
-        <div class="flex justify-between items-center mt-6 text-slate-500 text-sm font-medium">
-            <div id="audit-slide-number" class="bg-slate-800 px-4 py-2 rounded-full border border-slate-700 text-slate-300">Slide 1 of 15</div>
-            <div class="flex gap-4 items-center">
-                <button onclick="prevAuditSlide()" class="hover:text-white transition-colors">Previous</button>
-                <div class="w-px h-4 bg-slate-800"></div>
-                <button onclick="nextAuditSlide()" class="hover:text-white transition-colors">Next</button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<style>
-    .audit-slide {
-        display: none;
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        animation: fadeIn 0.5s ease-out;
-    }
-    .audit-slide.active {
-        display: block;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.98); }
-        to { opacity: 1; transform: scale(1); }
-    }
-</style>
-
-<script>
-    let currentAuditSlide = 0;
-    const auditSlides = document.querySelectorAll('.audit-slide');
-    const auditSlideNumber = document.getElementById('audit-slide-number');
-
-    function showAuditSlide(n) {
-        if (!auditSlides.length) return;
-        auditSlides[currentAuditSlide].classList.remove('active');
-        currentAuditSlide = (n + auditSlides.length) % auditSlides.length;
-        auditSlides[currentAuditSlide].classList.add('active');
-        auditSlideNumber.innerText = `Slide ${currentAuditSlide + 1} of ${auditSlides.length}`;
-    }
-
-    function nextAuditSlide() {
-        showAuditSlide(currentAuditSlide + 1);
-    }
-
-    function prevAuditSlide() {
-        showAuditSlide(currentAuditSlide - 1);
-    }
-</script>
 
     <!-- Contact -->
     <section id="contact" class="py-20 md:py-28 bg-[#080d18] border-t border-white/5 relative overflow-hidden">

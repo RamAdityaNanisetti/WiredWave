@@ -18,7 +18,6 @@ const partialOrder = [
   'tech_gallery.html',
   'solutions.html',
   'process.html',
-  'audit.html',
   'contact.html',
   'footer.html',
   'scripts.html'
@@ -95,8 +94,6 @@ function build() {
     <style>
         body { background-color: #0b1120; margin: 0; padding: 0; }
         img { max-width: 100%; height: auto; }
-        /* Override relative paths for the subdirectory index.html */
-        #site-audit a[href="site-audit/index.html"] { display: none; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -114,7 +111,10 @@ function build() {
     const auditDistDir = path.join(outDir, 'site-audit');
     fs.mkdirSync(auditDistDir, { recursive: true });
     fs.writeFileSync(path.join(auditDistDir, 'index.html'), standaloneAudit, 'utf8');
-    console.log('Generated standalone site-audit/index.html');
+    const auditRootDir = path.join(root, 'site-audit');
+    fs.mkdirSync(auditRootDir, { recursive: true });
+    fs.writeFileSync(path.join(auditRootDir, 'index.html'), standaloneAudit, 'utf8');
+    console.log('Generated standalone site-audit/index.html (dist and root)');
   }
 
   console.log('Built single-file index.html at:', outRoot);
