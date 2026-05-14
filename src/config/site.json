@@ -5,7 +5,10 @@
     "year": "2026"
   },
   "contact": {
-    "email": "contact@wiredwave.in"
+    "email": "support@wiredwave.in",
+    "phone": "+91 7386435520",
+    "phone_tel": "+917386435520",
+    "whatsapp_url": "https://wa.me/917386435520?text=Hi%20WiredWave%2C%20I%27d%20like%20to%20discuss%20a%20project."
   },
   "site": {
     "title_suffix": "Enterprise Infrastructure & Network Engineering"

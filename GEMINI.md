@@ -22,13 +22,18 @@ The build process (`npm run build`) performs the following steps:
    - `body-start.html`
    - `nav.html`
    - `hero.html`
+   - `who_we_serve.html`
+   - `core_services.html`
    - `tech_gallery.html`
    - `solutions.html`
    - `process.html`
+   - `audit.html`
    - `footer.html`
    - `scripts.html`
 3. Replaces tokens in the form `{{ key.path }}` with values from `site.json`.
 4. Writes the final HTML to both `dist/index.html` and the root `index.html`.
+5. Copies `assets/` to `dist/assets/` to ensure a complete distributable.
+6. Generates a standalone audit page from the `audit.html` partial and writes it to `dist/site-audit/index.html`.
 
 ## Development Workflows
 

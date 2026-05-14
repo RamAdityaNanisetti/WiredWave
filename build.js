@@ -19,6 +19,7 @@ const partialOrder = [
   'solutions.html',
   'process.html',
   'audit.html',
+  'contact.html',
   'footer.html',
   'scripts.html'
 ];

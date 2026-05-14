@@ -1,0 +1,42 @@
+    <!-- Contact -->
+    <section id="contact" class="py-20 md:py-28 bg-[#080d18] border-t border-white/5 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-80 h-80 bg-blue-600/5 blur-[80px] -mr-32 -mt-32 rounded-full pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-cyan-600/5 blur-[80px] -ml-32 -mb-32 rounded-full pointer-events-none" aria-hidden="true"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-14 md:mb-20">
+                <p class="text-[10px] md:text-[11px] font-bold text-blue-500 uppercase tracking-[0.4em] mb-4">Get in touch</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-4">Contact us</h2>
+                <p class="text-sm md:text-base text-slate-400 leading-relaxed font-medium">
+                    Whether you are planning a new deployment or tuning an existing stack, our engineering team is ready to respond. Reach us by email, phone, or WhatsApp.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <a href="mailto:{{ contact.email }}" class="group bento-card rounded-2xl p-8 flex flex-col items-center text-center md:items-start md:text-left hover:border-blue-500/50">
+                    <span class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-blue-400 mb-5 group-hover:bg-blue-600/20 group-hover:border-blue-500/40 transition-colors">
+                        <i class="fas fa-envelope text-lg" aria-hidden="true"></i>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Email</span>
+                    <span class="text-base font-semibold text-white group-hover:text-blue-400 transition-colors break-all">{{ contact.email }}</span>
+                </a>
+
+                <a href="tel:{{ contact.phone_tel }}" class="group bento-card rounded-2xl p-8 flex flex-col items-center text-center md:items-start md:text-left hover:border-blue-500/50">
+                    <span class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-blue-400 mb-5 group-hover:bg-blue-600/20 group-hover:border-blue-500/40 transition-colors">
+                        <i class="fas fa-phone-alt text-lg" aria-hidden="true"></i>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Phone</span>
+                    <span class="text-base font-semibold text-white group-hover:text-blue-400 transition-colors">{{ contact.phone }}</span>
+                </a>
+
+                <a href="{{ contact.whatsapp_url }}" target="_blank" rel="noopener noreferrer" class="group bento-card rounded-2xl p-8 flex flex-col items-center text-center md:items-start md:text-left hover:border-emerald-500/40">
+                    <span class="w-12 h-12 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center justify-center text-emerald-400 mb-5 group-hover:bg-emerald-600/15 group-hover:border-emerald-500/35 transition-colors">
+                        <i class="fab fa-whatsapp text-xl" aria-hidden="true"></i>
+                    </span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">WhatsApp</span>
+                    <span class="text-base font-semibold text-white group-hover:text-emerald-400 transition-colors">Message us on WhatsApp</span>
+                    <span class="text-xs text-slate-500 mt-2 font-medium">Opens in a new tab</span>
+                </a>
+            </div>
+        </div>
+    </section>
