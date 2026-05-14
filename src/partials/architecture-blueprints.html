@@ -1,0 +1,92 @@
+<section id="architecture-blueprints" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+    <!-- Background Accents -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/10 blur-[100px] -mr-48 -mt-48 rounded-full"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/10 blur-[100px] -ml-48 -mb-48 rounded-full"></div>
+
+    <div class="max-w-6xl mx-auto px-4 relative z-10">
+        <!-- Header -->
+        <div class="mb-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">Network Architecture Blueprints</h2>
+            <p class="text-slate-400 text-lg max-w-2xl">Reference designs and topology examples for enterprise-grade wired-first networks, segmentation, and resilient infrastructure.</p>
+        </div>
+
+        <!-- Slide Container -->
+        <div class="relative bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <div id="blueprint-slides-container" class="min-h-[300px] md:min-h-[500px] lg:min-h-[600px] flex items-center justify-center">
+                <img src="assets/images/architecture/image1.png" class="blueprint-slide active" alt="Blueprint 1">
+                <img src="assets/images/architecture/image2.png" class="blueprint-slide" alt="Blueprint 2">
+                <img src="assets/images/architecture/image3.png" class="blueprint-slide" alt="Blueprint 3">
+                <img src="assets/images/architecture/image4.png" class="blueprint-slide" alt="Blueprint 4">
+                <img src="assets/images/architecture/image5.png" class="blueprint-slide" alt="Blueprint 5">
+                <img src="assets/images/architecture/image6.png" class="blueprint-slide" alt="Blueprint 6">
+                <img src="assets/images/architecture/image7.png" class="blueprint-slide" alt="Blueprint 7">
+                <img src="assets/images/architecture/image8.png" class="blueprint-slide" alt="Blueprint 8">
+                <img src="assets/images/architecture/image9.png" class="blueprint-slide" alt="Blueprint 9">
+                <img src="assets/images/architecture/image10.png" class="blueprint-slide" alt="Blueprint 10">
+                <img src="assets/images/architecture/image11.png" class="blueprint-slide" alt="Blueprint 11">
+                <img src="assets/images/architecture/image12.png" class="blueprint-slide" alt="Blueprint 12">
+            </div>
+
+            <!-- Controls -->
+            <div class="absolute inset-y-0 left-0 flex items-center pl-4 md:pl-6">
+                <button onclick="prevBlueprintSlide()" class="blueprint-btn-nav w-12 h-12 rounded-full flex items-center justify-center text-white bg-slate-900/80 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 transition-all focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-4 md:pr-6">
+                <button onclick="nextBlueprintSlide()" class="blueprint-btn-nav w-12 h-12 rounded-full flex items-center justify-center text-white bg-slate-900/80 border border-slate-700 hover:bg-blue-600 hover:border-blue-500 transition-all focus:outline-none">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer / Pagination -->
+        <div class="flex justify-between items-center mt-6 text-slate-500 text-sm font-medium">
+            <div id="blueprint-slide-number" class="bg-slate-800 px-4 py-2 rounded-full border border-slate-700 text-slate-300">Slide 1 of 12</div>
+            <div class="flex gap-4 items-center">
+                <button onclick="prevBlueprintSlide()" class="hover:text-white transition-colors">Previous</button>
+                <div class="w-px h-4 bg-slate-800"></div>
+                <button onclick="nextBlueprintSlide()" class="hover:text-white transition-colors">Next</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .blueprint-slide {
+        display: none;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        animation: blueprintFadeIn 0.5s ease-out;
+    }
+    .blueprint-slide.active {
+        display: block;
+    }
+    @keyframes blueprintFadeIn {
+        from { opacity: 0; transform: scale(0.98); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
+
+<script>
+    let currentBlueprintSlide = 0;
+    const blueprintSlides = document.querySelectorAll('.blueprint-slide');
+    const blueprintSlideNumber = document.getElementById('blueprint-slide-number');
+
+    function showBlueprintSlide(n) {
+        if (!blueprintSlides.length) return;
+        blueprintSlides[currentBlueprintSlide].classList.remove('active');
+        currentBlueprintSlide = (n + blueprintSlides.length) % blueprintSlides.length;
+        blueprintSlides[currentBlueprintSlide].classList.add('active');
+        blueprintSlideNumber.innerText = `Slide ${currentBlueprintSlide + 1} of ${blueprintSlides.length}`;
+    }
+
+    function nextBlueprintSlide() {
+        showBlueprintSlide(currentBlueprintSlide + 1);
+    }
+
+    function prevBlueprintSlide() {
+        showBlueprintSlide(currentBlueprintSlide - 1);
+    }
+</script>

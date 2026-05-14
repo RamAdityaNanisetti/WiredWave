@@ -68,7 +68,7 @@
                     <p id="service-desc" class="text-slate-400 text-lg leading-relaxed mb-8">
                         Professional network architecture design and implementation. Specializing in high-performance wired-first networks, VLAN segmentation, and enterprise-grade hardware (TP-Link Omada/ Ubiquiti Unifi)
                     </p>
-                    <a href="#contact" class="inline-flex items-center gap-2 text-blue-500 font-bold hover:text-blue-400 transition-colors">
+                    <a id="service-cta" href="architecture-blueprints/index.html" class="inline-flex items-center gap-2 text-blue-500 font-bold hover:text-blue-400 transition-colors">
                         Learn more about this service <i class="fas fa-arrow-right text-xs"></i>
                     </a>
                 </div>
@@ -82,27 +82,32 @@
         'network': {
             title: 'Network Design & Setup',
             description: 'Professional network architecture design and implementation. Specializing in high-performance wired-first networks, VLAN segmentation, and enterprise-grade hardware (TP-Link Omada/ Ubiquiti Unifi)',
-            image: 'assets/images/services/NetworkInfra&Setup.png'
+            image: 'assets/images/services/NetworkInfra&Setup.png',
+            ctaHref: 'architecture-blueprints/index.html'
         },
         'nas': {
             title: 'Local AI Agents, NAS & VPN Solutions',
             description: 'Secure, private infrastructure for data storage and AI. Setup of local AI/ML agents, Network Attached Storage (NAS) for data redundancy, and WireGuard/OpenVPN for secure remote access.',
-            image: 'assets/images/services/VPN1.png'
+            image: 'assets/images/services/VPN1.png',
+            ctaHref: '#contact'
         },
         'virtualization': {
             title: 'Virtualization & Home Lab Setup',
             description: 'Deployment of Proxmox/Docker environments for personal or business use. Consolidate hardware, run local services, and build a resilient lab environment.',
-            image: 'assets/images/services/Virtualization.png'
+            image: 'assets/images/services/Virtualization.png',
+            ctaHref: '#contact'
         },
         'surveillance': {
             title: 'Secure IP CCTV Surveillance',
             description: 'End-to-end deployment of IP camera systems. Focused on network security, isolated surveillance VLANs, and high-fidelity local/remote monitoring.',
-            image: 'assets/images/services/IPcamCCTV.png'
+            image: 'assets/images/services/IPcamCCTV.png',
+            ctaHref: '#contact'
         },
         'audit': {
             title: 'Network/Infrastructure Reliability Audit',
             description: 'Comprehensive SRE-level audit of your current network and infrastructure. We identify bottlenecks, security gaps, and single points of failure to ensure maximum uptime.',
-            image: 'assets/images/services/SRE_Audit.png'
+            image: 'assets/images/services/SRE_Audit.png',
+            ctaHref: 'site-audit/index.html'
         }
     };
 
@@ -124,6 +129,8 @@
             img.src = service.image;
             title.innerText = service.title;
             desc.innerText = service.description;
+            const cta = document.getElementById('service-cta');
+            if (cta) cta.href = service.ctaHref;
             img.style.opacity = '1';
             title.style.opacity = '1';
             desc.style.opacity = '1';

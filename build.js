@@ -117,6 +117,44 @@ function build() {
     console.log('Generated standalone site-audit/index.html (dist and root)');
   }
 
+  // Generate standalone architecture blueprints page
+  const blueprintPartialPath = path.join(partialDir, 'architecture-blueprints.html');
+  if (fs.existsSync(blueprintPartialPath)) {
+    const blueprintContent = replaceTokens(fs.readFileSync(blueprintPartialPath, 'utf8'), cfg);
+    const standaloneBlueprint = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Blueprints | WiredWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #0b1120; margin: 0; padding: 0; }
+        img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <span class="text-white font-bold tracking-tight">WIREDWAVE <span class="text-blue-500">BLUEPRINTS</span></span>
+            <a href="../index.html" class="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                <i class="fas fa-arrow-left"></i> BACK TO SITE
+            </a>
+        </div>
+    </div>
+    ${blueprintContent.replace(/assets\/images\/architecture\//g, '../assets/images/architecture/')}
+</body>
+</html>`;
+    const blueprintDistDir = path.join(outDir, 'architecture-blueprints');
+    fs.mkdirSync(blueprintDistDir, { recursive: true });
+    fs.writeFileSync(path.join(blueprintDistDir, 'index.html'), standaloneBlueprint, 'utf8');
+    const blueprintRootDir = path.join(root, 'architecture-blueprints');
+    fs.mkdirSync(blueprintRootDir, { recursive: true });
+    fs.writeFileSync(path.join(blueprintRootDir, 'index.html'), standaloneBlueprint, 'utf8');
+    console.log('Generated standalone architecture-blueprints/index.html (dist and root)');
+  }
+
   console.log('Built single-file index.html at:', outRoot);
   console.log('Also wrote dist output at:', outDist);
 }

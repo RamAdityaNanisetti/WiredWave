@@ -169,6 +169,7 @@
             
             <div class="hidden md:flex items-center space-x-8 text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300">
                 <a href="site-audit/index.html" class="hover:text-white transition">Site Audits</a>
+                <a href="architecture-blueprints/index.html" class="hover:text-white transition">Blueprints</a>
                 <a href="#core-services" class="hover:text-white transition">Solutions</a>
                 <a href="#process" class="hover:text-white transition">Resilience</a>
                 <a href="#contact" class="btn-primary text-white px-6 py-2.5 rounded-md transition duration-300 shadow-lg shadow-blue-600/20">Contact Engineering</a>
@@ -184,6 +185,7 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#0b1120]/95 border-b border-white/5 px-6 py-8 space-y-6">
             <a href="site-audit/index.html" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Site Audits</a>
+            <a href="architecture-blueprints/index.html" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Blueprints</a>
             <a href="#core-services" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Solutions</a>
             <a href="#process" class="block text-[11px] font-bold tracking-[0.15em] uppercase text-slate-300 hover:text-white transition">Resilience</a>
             <a href="#contact" class="block btn-primary text-center text-white px-6 py-3 rounded-md transition duration-300 shadow-lg shadow-blue-600/20">Contact Engineering</a>
@@ -367,7 +369,7 @@
                     <p id="service-desc" class="text-slate-400 text-lg leading-relaxed mb-8">
                         Professional network architecture design and implementation. Specializing in high-performance wired-first networks, VLAN segmentation, and enterprise-grade hardware (TP-Link Omada/ Ubiquiti Unifi)
                     </p>
-                    <a href="#contact" class="inline-flex items-center gap-2 text-blue-500 font-bold hover:text-blue-400 transition-colors">
+                    <a id="service-cta" href="architecture-blueprints/index.html" class="inline-flex items-center gap-2 text-blue-500 font-bold hover:text-blue-400 transition-colors">
                         Learn more about this service <i class="fas fa-arrow-right text-xs"></i>
                     </a>
                 </div>
@@ -381,27 +383,32 @@
         'network': {
             title: 'Network Design & Setup',
             description: 'Professional network architecture design and implementation. Specializing in high-performance wired-first networks, VLAN segmentation, and enterprise-grade hardware (TP-Link Omada/ Ubiquiti Unifi)',
-            image: 'assets/images/services/NetworkInfra&Setup.png'
+            image: 'assets/images/services/NetworkInfra&Setup.png',
+            ctaHref: 'architecture-blueprints/index.html'
         },
         'nas': {
             title: 'Local AI Agents, NAS & VPN Solutions',
             description: 'Secure, private infrastructure for data storage and AI. Setup of local AI/ML agents, Network Attached Storage (NAS) for data redundancy, and WireGuard/OpenVPN for secure remote access.',
-            image: 'assets/images/services/VPN1.png'
+            image: 'assets/images/services/VPN1.png',
+            ctaHref: '#contact'
         },
         'virtualization': {
             title: 'Virtualization & Home Lab Setup',
             description: 'Deployment of Proxmox/Docker environments for personal or business use. Consolidate hardware, run local services, and build a resilient lab environment.',
-            image: 'assets/images/services/Virtualization.png'
+            image: 'assets/images/services/Virtualization.png',
+            ctaHref: '#contact'
         },
         'surveillance': {
             title: 'Secure IP CCTV Surveillance',
             description: 'End-to-end deployment of IP camera systems. Focused on network security, isolated surveillance VLANs, and high-fidelity local/remote monitoring.',
-            image: 'assets/images/services/IPcamCCTV.png'
+            image: 'assets/images/services/IPcamCCTV.png',
+            ctaHref: '#contact'
         },
         'audit': {
             title: 'Network/Infrastructure Reliability Audit',
             description: 'Comprehensive SRE-level audit of your current network and infrastructure. We identify bottlenecks, security gaps, and single points of failure to ensure maximum uptime.',
-            image: 'assets/images/services/SRE_Audit.png'
+            image: 'assets/images/services/SRE_Audit.png',
+            ctaHref: 'site-audit/index.html'
         }
     };
 
@@ -423,6 +430,8 @@
             img.src = service.image;
             title.innerText = service.title;
             desc.innerText = service.description;
+            const cta = document.getElementById('service-cta');
+            if (cta) cta.href = service.ctaHref;
             img.style.opacity = '1';
             title.style.opacity = '1';
             desc.style.opacity = '1';
@@ -801,92 +810,10 @@
                 </div>
             </div>
 
-            <!-- Architecture Blueprints Gallery -->
-            <div class="mt-16 md:mt-24">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-                    <h3 class="text-xl md:text-2xl font-bold text-white flex items-center gap-3">
-                        <span class="w-8 h-px bg-blue-500"></span>
-                        Network Architecture Blueprints
-                    </h3>
-                    <div id="arch-slide-number" class="text-[10px] font-mono text-slate-500 uppercase tracking-widest bg-slate-900/50 px-3 py-1 rounded border border-slate-800">
-                        Slide 1 / 12
-                    </div>
-                </div>
-
-                <div class="relative bento-card rounded-2xl overflow-hidden group/arch shadow-2xl">
-                    <div id="arch-slides-container" class="aspect-video flex items-center justify-center bg-slate-950/50">
-                        <img src="assets/images/architecture/image1.png" class="arch-slide active" alt="Blueprint 1">
-                        <img src="assets/images/architecture/image2.png" class="arch-slide" alt="Blueprint 2">
-                        <img src="assets/images/architecture/image3.png" class="arch-slide" alt="Blueprint 3">
-                        <img src="assets/images/architecture/image4.png" class="arch-slide" alt="Blueprint 4">
-                        <img src="assets/images/architecture/image5.png" class="arch-slide" alt="Blueprint 5">
-                        <img src="assets/images/architecture/image6.png" class="arch-slide" alt="Blueprint 6">
-                        <img src="assets/images/architecture/image7.png" class="arch-slide" alt="Blueprint 7">
-                        <img src="assets/images/architecture/image8.png" class="arch-slide" alt="Blueprint 8">
-                        <img src="assets/images/architecture/image9.png" class="arch-slide" alt="Blueprint 9">
-                        <img src="assets/images/architecture/image10.png" class="arch-slide" alt="Blueprint 10">
-                        <img src="assets/images/architecture/image11.png" class="arch-slide" alt="Blueprint 11">
-                        <img src="assets/images/architecture/image12.png" class="arch-slide" alt="Blueprint 12">
-                    </div>
-
-                    <!-- Navigation Controls -->
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 md:opacity-0 group-hover/arch:opacity-100 transition-opacity">
-                        <button onclick="prevArchSlide()" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-900/90 border border-slate-700 text-white hover:bg-blue-600 hover:border-blue-500 transition-all flex items-center justify-center shadow-lg">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                    </div>
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-4 md:opacity-0 group-hover/arch:opacity-100 transition-opacity">
-                        <button onclick="nextArchSlide()" class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-900/90 border border-slate-700 text-white hover:bg-blue-600 hover:border-blue-500 transition-all flex items-center justify-center shadow-lg">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                    
-                    <!-- Progress Bar -->
-                    <div class="absolute bottom-0 left-0 w-full h-1 bg-slate-800/50">
-                        <div id="arch-progress" class="h-full bg-blue-500 transition-all duration-500 ease-out" style="width: 8.33%"></div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
-    <style>
-        .arch-slide {
-            display: none;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            padding: 1rem;
-        }
-        .arch-slide.active {
-            display: block;
-            animation: archFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        @keyframes archFadeIn {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
-        }
-    </style>
 
-    <script>
-        let currentArchSlide = 0;
-        const archSlides = document.querySelectorAll('.arch-slide');
-        const archSlideNumber = document.getElementById('arch-slide-number');
-        const archProgress = document.getElementById('arch-progress');
-
-        function showArchSlide(n) {
-            if (!archSlides.length) return;
-            archSlides[currentArchSlide].classList.remove('active');
-            currentArchSlide = (n + archSlides.length) % archSlides.length;
-            archSlides[currentArchSlide].classList.add('active');
-            
-            archSlideNumber.innerText = `Slide ${currentArchSlide + 1} / ${archSlides.length}`;
-            archProgress.style.width = `${((currentArchSlide + 1) / archSlides.length) * 100}%`;
-        }
-
-        function nextArchSlide() { showArchSlide(currentArchSlide + 1); }
-        function prevArchSlide() { showArchSlide(currentArchSlide - 1); }
-    </script>
 
     <!-- Implementation Timeline -->
     <section id="process" class="py-20 md:py-32 bg-[#080d18]">
