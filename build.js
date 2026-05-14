@@ -17,6 +17,7 @@ const partialOrder = [
   'core_services.html',
   'tech_gallery.html',
   'solutions.html',
+  'engineered_excellence.html',
   'process.html',
   'contact.html',
   'footer.html',
@@ -44,6 +45,52 @@ function replaceTokens(html, cfg) {
   });
 }
 
+function escapeHtml(text) {
+  if (text == null) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function buildEngineeredExcellenceCards(jsonPath) {
+  if (!fs.existsSync(jsonPath)) {
+    console.warn('engineering-excellence.json missing:', jsonPath);
+    return '';
+  }
+  try {
+    const items = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+    if (!Array.isArray(items) || items.length === 0) return '';
+    const imgBase = 'assets/images/engineered excellence/';
+    return items
+      .map((item, idx) => {
+        const title = escapeHtml(item.title);
+        const caption = escapeHtml(item.caption);
+        const description = escapeHtml(item.description);
+        const img = escapeHtml(item.image);
+        return `
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="${idx}" aria-roledescription="slide" aria-label="Slide ${idx + 1} of ${items.length}: ${title}">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">${title}</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">${caption}</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="${imgBase}${img}" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="${idx === 0 ? 'eager' : 'lazy'}" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">${description}</p>
+                </div>
+            </article>`;
+      })
+      .join('\n');
+  } catch (e) {
+    console.warn('engineering-excellence.json invalid:', e.message);
+    return '';
+  }
+}
+
 function assembleFromPartials() {
   let out = '';
   for (const p of partialOrder) {
@@ -59,6 +106,8 @@ function assembleFromPartials() {
 
 function build() {
   const cfg = loadConfig();
+  const engExPath = path.join(root, 'src', 'config', 'engineering-excellence.json');
+  cfg.engineered_excellence_cards = buildEngineeredExcellenceCards(engExPath);
 
   // Assemble HTML from partials
   const assembled = replaceTokens(assembleFromPartials(), cfg);

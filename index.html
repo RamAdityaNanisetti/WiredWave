@@ -124,6 +124,66 @@
 
         header, section, footer { position: relative; z-index: 10; }
 
+        /* Engineered Excellence carousel */
+        .ee-root { position: relative; }
+        #ee-viewport-wrap { position: relative; }
+        .ee-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.88);
+            background: rgba(15, 23, 42, 0.42);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        }
+        .ee-nav:hover {
+            background: rgba(59, 130, 246, 0.55);
+            color: #fff;
+            border-color: rgba(147, 197, 253, 0.45);
+            box-shadow: 0 6px 28px rgba(37, 99, 235, 0.35);
+        }
+        .ee-nav:focus-visible {
+            outline: 2px solid rgba(96, 165, 250, 0.9);
+            outline-offset: 3px;
+        }
+        .ee-nav-prev { left: 0.35rem; }
+        .ee-nav-next { right: 0.35rem; }
+        @media (min-width: 768px) {
+            .ee-nav-prev { left: 0.75rem; }
+            .ee-nav-next { right: 0.75rem; }
+        }
+        .ee-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            background: rgba(148, 163, 184, 0.35);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+        }
+        .ee-dot:hover { background: rgba(148, 163, 184, 0.65); }
+        .ee-dot[aria-current="true"] {
+            background: rgb(59, 130, 246);
+            transform: scale(1.3);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.45);
+        }
+        .ee-dot:focus-visible {
+            outline: 2px solid rgba(96, 165, 250, 0.9);
+            outline-offset: 3px;
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 3.5rem !important;
@@ -755,6 +815,156 @@
     </section>
 
 
+    <!-- Engineered Excellence -->
+    <section id="engineered-excellence" class="py-20 md:py-28 bg-[#0c1220] border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-10 md:mb-14">
+                <h2 class="text-[10px] md:text-[11px] font-bold text-blue-500 uppercase tracking-[0.4em] mb-3">Engineered Excellence</h2>
+                <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">Technical capabilities engineered for continuity, privacy, and performance across the estate.</p>
+            </div>
+
+            <div id="ee-root" class="ee-root max-w-5xl mx-auto">
+                <div class="relative" id="ee-viewport-wrap">
+                    <div
+                        id="ee-viewport"
+                        class="ee-viewport flex gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 hide-scrollbar px-1 md:px-[max(1rem,calc(50vw-18rem))]"
+                        tabindex="0"
+                        role="region"
+                        aria-roledescription="carousel"
+                        aria-label="Engineered excellence highlights"
+                    >
+                        
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="0" aria-roledescription="slide" aria-label="Slide 1 of 9: Uninterrupted Business Continuity">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">Uninterrupted Business Continuity</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">An unbreakable connection that never drops.</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/1-wan-failover.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="eager" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">We eliminate the &quot;single point of failure&quot; in your home. By integrating an automated secondary internet feed, we ensure that a neighborhood service outage never results in a dropped board meeting or a disconnected security system. The switch is instantaneous and invisible.</p>
+                </div>
+            </article>
+
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="1" aria-roledescription="slide" aria-label="Slide 2 of 9: VIP Bandwidth Guarantee">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">VIP Bandwidth Guarantee</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">Absolute priority for your most critical devices.</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/2-vip-expresslane.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="lazy" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">In a high-traffic household, your work must take precedence. We designate your primary devices for &quot;First-Class&quot; treatment, ensuring your video calls and data transfers have a dedicated lane of high-speed travel that cannot be slowed down by streaming or gaming in other rooms.</p>
+                </div>
+            </article>
+
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="2" aria-roledescription="slide" aria-label="Slide 3 of 9: Internal Privacy Firewall">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">Internal Privacy Firewall</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">Total isolation of your sensitive financial data.</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/3-secure-vault.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="lazy" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">We create &quot;digital silos&quot; within your home. This ensures your private banking, legal documents, and personal computers are physically invisible to the rest of the network, preventing a security flaw in a common household gadget from ever reaching your private files.</p>
+                </div>
+            </article>
+
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="3" aria-roledescription="slide" aria-label="Slide 4 of 9: Secure Concierge Access">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">Secure Concierge Access</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">Hospitality for guests without compromising your privacy.</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/4-guest-access.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="lazy" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">Provide visitors with premium, high-speed Wi-Fi that remains entirely external to your home’s private systems. Your guests enjoy a seamless connection, but they are never granted &quot;eyes&quot; into your private printers, media servers, or security cameras.</p>
+                </div>
+            </article>
+
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="4" aria-roledescription="slide" aria-label="Slide 5 of 9: Family Content Governance">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">Family Content Governance</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">Proactive protection for the next generation.</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/5-child-safety.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="lazy" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">We implement an automated shield that filters out adult content, malicious websites, and online threats at the source. It protects every device your children use—from tablets to consoles—creating a curated, worry-free digital environment without requiring manual software updates.</p>
+                </div>
+            </article>
+
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="5" aria-roledescription="slide" aria-label="Slide 6 of 9: Property Intelligence &amp; Surveillance">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">Property Intelligence &amp; Surveillance</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">Professional-grade situational awareness.</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/6-cctv.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="lazy" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">Your security becomes proactive rather than reactive. Using AI-driven hardware, the system distinguishes between routine movement and genuine threats (like unauthorized vehicles or intruders), sending intelligent, real-time alerts directly to your mobile device.</p>
+                </div>
+            </article>
+
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="6" aria-roledescription="slide" aria-label="Slide 7 of 9: Personal Identity Obfuscation">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">Personal Identity Obfuscation</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">Complete digital privacy from external trackers.</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/7-privacy.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="lazy" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">Most internet providers and websites track your &quot;digital footprint&quot; for profiling. This feature masks your household&#039;s browsing habits at the gateway level, ensuring that your family’s online movements remain private and anonymous to the outside world.</p>
+                </div>
+            </article>
+
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="7" aria-roledescription="slide" aria-label="Slide 8 of 9: Network Performance Integrity">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">Network Performance Integrity</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">Sustained peak speed across the entire estate.</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/8-rate-limit.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="lazy" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">A single device with a weak signal in a distant room can &quot;drag down&quot; the speed of the entire network. Our system intelligently manages these outliers, preventing failing connections or bandwidth-heavy background tasks from compromising the performance of the rest of the house.</p>
+                </div>
+            </article>
+
+            <article class="ee-card shrink-0 w-[min(92vw,36rem)] snap-center flex flex-col bg-[#070b14] border border-slate-800/60 rounded-2xl overflow-hidden shadow-xl shadow-black/30" data-ee-index="8" aria-roledescription="slide" aria-label="Slide 9 of 9: Smart-Device Containment">
+                <header class="px-6 md:px-8 pt-6 md:pt-8 pb-3 text-left">
+                    <h3 class="text-lg md:text-xl font-bold text-white tracking-tight leading-snug">Smart-Device Containment</h3>
+                    <p class="text-[11px] md:text-xs font-semibold text-blue-400/90 uppercase tracking-[0.18em] mt-2">Neutralizing the vulnerabilities of the &quot;Smart Home.&quot;</p>
+                </header>
+                <div class="relative w-full bg-slate-900/40 border-y border-white/5">
+                    <img src="assets/images/engineered excellence/9-IoT-isolation.png" alt="" class="w-full h-48 sm:h-52 md:h-56 object-cover object-center block" width="640" height="320" loading="lazy" decoding="async">
+                </div>
+                <div class="px-6 md:px-8 py-5 md:py-6 flex-1 text-left">
+                    <p class="text-sm md:text-[15px] text-slate-400 leading-relaxed">Smart bulbs, appliances, and sensors are often the weakest links in digital security. We lock these devices in a restricted &quot;Containment Zone&quot; where they can perform their duties perfectly, but are strictly blocked from ever communicating with your primary computers or smartphones.</p>
+                </div>
+            </article>
+                    </div>
+
+                    <button type="button" id="ee-prev" class="ee-nav ee-nav-prev" aria-label="Previous slide">
+                        <i class="fas fa-chevron-left text-sm" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" id="ee-next" class="ee-nav ee-nav-next" aria-label="Next slide">
+                        <i class="fas fa-chevron-right text-sm" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <div id="ee-dots" class="flex flex-wrap justify-center gap-2.5 mt-8 md:mt-10" role="tablist" aria-label="Slide pagination"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Implementation Timeline -->
     <section id="process" class="py-20 md:py-32 bg-[#080d18]">
         <div class="max-w-7xl mx-auto px-6 text-center">
@@ -933,6 +1143,179 @@
                 }
             });
         }
+
+        /* Engineered Excellence carousel */
+        (function initEngineeredExcellenceCarousel() {
+            const AUTO_MS = 5000;
+            const root = document.getElementById('ee-root');
+            const viewport = document.getElementById('ee-viewport');
+            const dotsHost = document.getElementById('ee-dots');
+            const btnPrev = document.getElementById('ee-prev');
+            const btnNext = document.getElementById('ee-next');
+            if (!root || !viewport || !dotsHost || !btnPrev || !btnNext) return;
+
+            const cards = () => Array.from(viewport.querySelectorAll('.ee-card'));
+            let list = cards();
+            if (!list.length) {
+                root.closest('section')?.classList.add('hidden');
+                return;
+            }
+
+            let autoDisabled = false;
+            let hoverInside = false;
+            let hadClickWhileHovered = false;
+            let touchActiveOnSlide = false;
+            let timerId = null;
+            let touchResumeTimer = null;
+
+            function stopAutoTimer() {
+                if (timerId) {
+                    clearInterval(timerId);
+                    timerId = null;
+                }
+            }
+
+            function shouldRunAuto() {
+                if (autoDisabled) return false;
+                if (hoverInside) return false;
+                if (touchActiveOnSlide) return false;
+                return true;
+            }
+
+            function startAutoTimer() {
+                stopAutoTimer();
+                if (!shouldRunAuto()) return;
+                timerId = setInterval(() => {
+                    if (!shouldRunAuto()) return;
+                    const n = cards().length;
+                    if (n < 2) return;
+                    const next = (currentIndex() + 1) % n;
+                    goToIndex(next, true);
+                }, AUTO_MS);
+            }
+
+            function disableAutoPermanently() {
+                autoDisabled = true;
+                stopAutoTimer();
+            }
+
+            function currentIndex() {
+                list = cards();
+                const n = list.length;
+                if (!n) return 0;
+                const viewMid = viewport.scrollLeft + viewport.clientWidth / 2;
+                let best = 0;
+                let bestDist = Infinity;
+                list.forEach((card, i) => {
+                    const mid = card.offsetLeft + card.offsetWidth / 2;
+                    const d = Math.abs(mid - viewMid);
+                    if (d < bestDist) {
+                        bestDist = d;
+                        best = i;
+                    }
+                });
+                return best;
+            }
+
+            function goToIndex(i, smooth) {
+                list = cards();
+                const card = list[i];
+                if (!card) return;
+                const left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
+                viewport.scrollTo({ left: Math.max(0, left), behavior: smooth ? 'smooth' : 'auto' });
+                syncDots(i);
+            }
+
+            function syncDots(active) {
+                dotsHost.querySelectorAll('.ee-dot').forEach((dot, i) => {
+                    const on = i === active;
+                    dot.setAttribute('aria-current', on ? 'true' : 'false');
+                    dot.setAttribute('tabindex', on ? '0' : '-1');
+                });
+            }
+
+            function buildDots() {
+                dotsHost.innerHTML = '';
+                list = cards();
+                list.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = 'ee-dot';
+                    dot.setAttribute('role', 'tab');
+                    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    dot.addEventListener('click', () => {
+                        disableAutoPermanently();
+                        goToIndex(i, true);
+                    });
+                    dotsHost.appendChild(dot);
+                });
+                syncDots(currentIndex());
+            }
+
+            let scrollTick = null;
+            viewport.addEventListener('scroll', () => {
+                if (scrollTick) cancelAnimationFrame(scrollTick);
+                scrollTick = requestAnimationFrame(() => {
+                    scrollTick = null;
+                    syncDots(currentIndex());
+                });
+            }, { passive: true });
+
+            btnPrev.addEventListener('click', () => {
+                disableAutoPermanently();
+                const n = cards().length;
+                const i = (currentIndex() - 1 + n) % n;
+                goToIndex(i, true);
+            });
+            btnNext.addEventListener('click', () => {
+                disableAutoPermanently();
+                const n = cards().length;
+                const i = (currentIndex() + 1) % n;
+                goToIndex(i, true);
+            });
+
+            root.addEventListener('mouseenter', () => {
+                hoverInside = true;
+                hadClickWhileHovered = false;
+                stopAutoTimer();
+            });
+            root.addEventListener('mouseleave', () => {
+                hoverInside = false;
+                const blockResume = hadClickWhileHovered;
+                hadClickWhileHovered = false;
+                if (!blockResume && !autoDisabled) startAutoTimer();
+            });
+            root.addEventListener('click', () => {
+                if (hoverInside) hadClickWhileHovered = true;
+            }, true);
+
+            viewport.querySelectorAll('.ee-card').forEach((card) => {
+                card.addEventListener('touchstart', () => {
+                    touchActiveOnSlide = true;
+                    stopAutoTimer();
+                }, { passive: true });
+                card.addEventListener('touchend', () => {
+                    if (touchResumeTimer) clearTimeout(touchResumeTimer);
+                    touchResumeTimer = setTimeout(() => {
+                        touchActiveOnSlide = false;
+                        touchResumeTimer = null;
+                        if (!autoDisabled && !hoverInside) startAutoTimer();
+                    }, 80);
+                }, { passive: true });
+                card.addEventListener('touchcancel', () => {
+                    if (touchResumeTimer) clearTimeout(touchResumeTimer);
+                    touchResumeTimer = setTimeout(() => {
+                        touchActiveOnSlide = false;
+                        touchResumeTimer = null;
+                        if (!autoDisabled && !hoverInside) startAutoTimer();
+                    }, 80);
+                }, { passive: true });
+            });
+
+            buildDots();
+            startAutoTimer();
+            requestAnimationFrame(() => syncDots(currentIndex()));
+        })();
 
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');

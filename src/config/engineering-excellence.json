@@ -1,0 +1,65 @@
+[
+    {
+      "id": 1,
+      "title": "Uninterrupted Business Continuity",
+      "caption": "An unbreakable connection that never drops.",
+      "description": "We eliminate the \"single point of failure\" in your home. By integrating an automated secondary internet feed, we ensure that a neighborhood service outage never results in a dropped board meeting or a disconnected security system. The switch is instantaneous and invisible.",
+      "image": "1-wan-failover.png"
+    },
+    {
+      "id": 2,
+      "title": "VIP Bandwidth Guarantee",
+      "caption": "Absolute priority for your most critical devices.",
+      "description": "In a high-traffic household, your work must take precedence. We designate your primary devices for \"First-Class\" treatment, ensuring your video calls and data transfers have a dedicated lane of high-speed travel that cannot be slowed down by streaming or gaming in other rooms.",
+      "image": "2-vip-expresslane.png"
+    },
+    {
+      "id": 3,
+      "title": "Internal Privacy Firewall",
+      "caption": "Total isolation of your sensitive financial data.",
+      "description": "We create \"digital silos\" within your home. This ensures your private banking, legal documents, and personal computers are physically invisible to the rest of the network, preventing a security flaw in a common household gadget from ever reaching your private files.",
+      "image": "3-secure-vault.png"
+    },
+    {
+      "id": 4,
+      "title": "Secure Concierge Access",
+      "caption": "Hospitality for guests without compromising your privacy.",
+      "description": "Provide visitors with premium, high-speed Wi-Fi that remains entirely external to your home’s private systems. Your guests enjoy a seamless connection, but they are never granted \"eyes\" into your private printers, media servers, or security cameras.",
+      "image": "4-guest-access.png"
+    },
+    {
+      "id": 5,
+      "title": "Family Content Governance",
+      "caption": "Proactive protection for the next generation.",
+      "description": "We implement an automated shield that filters out adult content, malicious websites, and online threats at the source. It protects every device your children use—from tablets to consoles—creating a curated, worry-free digital environment without requiring manual software updates.",
+      "image": "5-child-safety.png"
+    },
+    {
+      "id": 6,
+      "title": "Property Intelligence & Surveillance",
+      "caption": "Professional-grade situational awareness.",
+      "description": "Your security becomes proactive rather than reactive. Using AI-driven hardware, the system distinguishes between routine movement and genuine threats (like unauthorized vehicles or intruders), sending intelligent, real-time alerts directly to your mobile device.",
+      "image": "6-cctv.png"
+    },
+    {
+      "id": 7,
+      "title": "Personal Identity Obfuscation",
+      "caption": "Complete digital privacy from external trackers.",
+      "description": "Most internet providers and websites track your \"digital footprint\" for profiling. This feature masks your household's browsing habits at the gateway level, ensuring that your family’s online movements remain private and anonymous to the outside world.",
+      "image": "7-privacy.png"
+    },
+    {
+      "id": 8,
+      "title": "Network Performance Integrity",
+      "caption": "Sustained peak speed across the entire estate.",
+      "description": "A single device with a weak signal in a distant room can \"drag down\" the speed of the entire network. Our system intelligently manages these outliers, preventing failing connections or bandwidth-heavy background tasks from compromising the performance of the rest of the house.",
+      "image": "8-rate-limit.png"
+    },
+    {
+      "id": 9,
+      "title": "Smart-Device Containment",
+      "caption": "Neutralizing the vulnerabilities of the \"Smart Home.\"",
+      "description": "Smart bulbs, appliances, and sensors are often the weakest links in digital security. We lock these devices in a restricted \"Containment Zone\" where they can perform their duties perfectly, but are strictly blocked from ever communicating with your primary computers or smartphones.",
+      "image": "9-IoT-isolation.png"
+    }
+  ]

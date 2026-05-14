@@ -1,0 +1,33 @@
+    <!-- Engineered Excellence -->
+    <section id="engineered-excellence" class="py-20 md:py-28 bg-[#0c1220] border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-10 md:mb-14">
+                <h2 class="text-[10px] md:text-[11px] font-bold text-blue-500 uppercase tracking-[0.4em] mb-3">Engineered Excellence</h2>
+                <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">Technical capabilities engineered for continuity, privacy, and performance across the estate.</p>
+            </div>
+
+            <div id="ee-root" class="ee-root max-w-5xl mx-auto">
+                <div class="relative" id="ee-viewport-wrap">
+                    <div
+                        id="ee-viewport"
+                        class="ee-viewport flex gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 hide-scrollbar px-1 md:px-[max(1rem,calc(50vw-18rem))]"
+                        tabindex="0"
+                        role="region"
+                        aria-roledescription="carousel"
+                        aria-label="Engineered excellence highlights"
+                    >
+                        {{ engineered_excellence_cards }}
+                    </div>
+
+                    <button type="button" id="ee-prev" class="ee-nav ee-nav-prev" aria-label="Previous slide">
+                        <i class="fas fa-chevron-left text-sm" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" id="ee-next" class="ee-nav ee-nav-next" aria-label="Next slide">
+                        <i class="fas fa-chevron-right text-sm" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <div id="ee-dots" class="flex flex-wrap justify-center gap-2.5 mt-8 md:mt-10" role="tablist" aria-label="Slide pagination"></div>
+            </div>
+        </div>
+    </section>

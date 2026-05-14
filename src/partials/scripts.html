@@ -40,6 +40,179 @@
             });
         }
 
+        /* Engineered Excellence carousel */
+        (function initEngineeredExcellenceCarousel() {
+            const AUTO_MS = 5000;
+            const root = document.getElementById('ee-root');
+            const viewport = document.getElementById('ee-viewport');
+            const dotsHost = document.getElementById('ee-dots');
+            const btnPrev = document.getElementById('ee-prev');
+            const btnNext = document.getElementById('ee-next');
+            if (!root || !viewport || !dotsHost || !btnPrev || !btnNext) return;
+
+            const cards = () => Array.from(viewport.querySelectorAll('.ee-card'));
+            let list = cards();
+            if (!list.length) {
+                root.closest('section')?.classList.add('hidden');
+                return;
+            }
+
+            let autoDisabled = false;
+            let hoverInside = false;
+            let hadClickWhileHovered = false;
+            let touchActiveOnSlide = false;
+            let timerId = null;
+            let touchResumeTimer = null;
+
+            function stopAutoTimer() {
+                if (timerId) {
+                    clearInterval(timerId);
+                    timerId = null;
+                }
+            }
+
+            function shouldRunAuto() {
+                if (autoDisabled) return false;
+                if (hoverInside) return false;
+                if (touchActiveOnSlide) return false;
+                return true;
+            }
+
+            function startAutoTimer() {
+                stopAutoTimer();
+                if (!shouldRunAuto()) return;
+                timerId = setInterval(() => {
+                    if (!shouldRunAuto()) return;
+                    const n = cards().length;
+                    if (n < 2) return;
+                    const next = (currentIndex() + 1) % n;
+                    goToIndex(next, true);
+                }, AUTO_MS);
+            }
+
+            function disableAutoPermanently() {
+                autoDisabled = true;
+                stopAutoTimer();
+            }
+
+            function currentIndex() {
+                list = cards();
+                const n = list.length;
+                if (!n) return 0;
+                const viewMid = viewport.scrollLeft + viewport.clientWidth / 2;
+                let best = 0;
+                let bestDist = Infinity;
+                list.forEach((card, i) => {
+                    const mid = card.offsetLeft + card.offsetWidth / 2;
+                    const d = Math.abs(mid - viewMid);
+                    if (d < bestDist) {
+                        bestDist = d;
+                        best = i;
+                    }
+                });
+                return best;
+            }
+
+            function goToIndex(i, smooth) {
+                list = cards();
+                const card = list[i];
+                if (!card) return;
+                const left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
+                viewport.scrollTo({ left: Math.max(0, left), behavior: smooth ? 'smooth' : 'auto' });
+                syncDots(i);
+            }
+
+            function syncDots(active) {
+                dotsHost.querySelectorAll('.ee-dot').forEach((dot, i) => {
+                    const on = i === active;
+                    dot.setAttribute('aria-current', on ? 'true' : 'false');
+                    dot.setAttribute('tabindex', on ? '0' : '-1');
+                });
+            }
+
+            function buildDots() {
+                dotsHost.innerHTML = '';
+                list = cards();
+                list.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = 'ee-dot';
+                    dot.setAttribute('role', 'tab');
+                    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    dot.addEventListener('click', () => {
+                        disableAutoPermanently();
+                        goToIndex(i, true);
+                    });
+                    dotsHost.appendChild(dot);
+                });
+                syncDots(currentIndex());
+            }
+
+            let scrollTick = null;
+            viewport.addEventListener('scroll', () => {
+                if (scrollTick) cancelAnimationFrame(scrollTick);
+                scrollTick = requestAnimationFrame(() => {
+                    scrollTick = null;
+                    syncDots(currentIndex());
+                });
+            }, { passive: true });
+
+            btnPrev.addEventListener('click', () => {
+                disableAutoPermanently();
+                const n = cards().length;
+                const i = (currentIndex() - 1 + n) % n;
+                goToIndex(i, true);
+            });
+            btnNext.addEventListener('click', () => {
+                disableAutoPermanently();
+                const n = cards().length;
+                const i = (currentIndex() + 1) % n;
+                goToIndex(i, true);
+            });
+
+            root.addEventListener('mouseenter', () => {
+                hoverInside = true;
+                hadClickWhileHovered = false;
+                stopAutoTimer();
+            });
+            root.addEventListener('mouseleave', () => {
+                hoverInside = false;
+                const blockResume = hadClickWhileHovered;
+                hadClickWhileHovered = false;
+                if (!blockResume && !autoDisabled) startAutoTimer();
+            });
+            root.addEventListener('click', () => {
+                if (hoverInside) hadClickWhileHovered = true;
+            }, true);
+
+            viewport.querySelectorAll('.ee-card').forEach((card) => {
+                card.addEventListener('touchstart', () => {
+                    touchActiveOnSlide = true;
+                    stopAutoTimer();
+                }, { passive: true });
+                card.addEventListener('touchend', () => {
+                    if (touchResumeTimer) clearTimeout(touchResumeTimer);
+                    touchResumeTimer = setTimeout(() => {
+                        touchActiveOnSlide = false;
+                        touchResumeTimer = null;
+                        if (!autoDisabled && !hoverInside) startAutoTimer();
+                    }, 80);
+                }, { passive: true });
+                card.addEventListener('touchcancel', () => {
+                    if (touchResumeTimer) clearTimeout(touchResumeTimer);
+                    touchResumeTimer = setTimeout(() => {
+                        touchActiveOnSlide = false;
+                        touchResumeTimer = null;
+                        if (!autoDisabled && !hoverInside) startAutoTimer();
+                    }, 80);
+                }, { passive: true });
+            });
+
+            buildDots();
+            startAutoTimer();
+            requestAnimationFrame(() => syncDots(currentIndex()));
+        })();
+
         const canvas = document.getElementById('network-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
