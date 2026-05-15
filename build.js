@@ -204,6 +204,67 @@ function build() {
     console.log('Generated standalone architecture-blueprints/index.html (dist and root)');
   }
 
+  // Generate standalone About Us page
+  const aboutPartialPath = path.join(partialDir, 'about_us.html');
+  if (fs.existsSync(aboutPartialPath)) {
+    const aboutContent = replaceTokens(fs.readFileSync(aboutPartialPath, 'utf8'), cfg);
+    const standaloneAbout = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | WiredWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        @media print {
+            body { background-color: white; }
+            .print-shadow-none { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            600: '#475569',
+                            blue: '#0284c7',
+                            gold: '#b45309'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-brand-900 py-10 no-print:bg-slate-100">
+    ${aboutContent}
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>`;
+    const aboutDistDir = path.join(outDir, 'about-us');
+    fs.mkdirSync(aboutDistDir, { recursive: true });
+    fs.writeFileSync(path.join(aboutDistDir, 'index.html'), standaloneAbout, 'utf8');
+    const aboutRootDir = path.join(root, 'about-us');
+    fs.mkdirSync(aboutRootDir, { recursive: true });
+    fs.writeFileSync(path.join(aboutRootDir, 'index.html'), standaloneAbout, 'utf8');
+    console.log('Generated standalone about-us/index.html (dist and root)');
+  }
+
   console.log('Built single-file index.html at:', outRoot);
   console.log('Also wrote dist output at:', outDist);
 }

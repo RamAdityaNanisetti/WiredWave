@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | WiredWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        @media print {
+            body { background-color: white; }
+            .print-shadow-none { box-shadow: none !important; margin: 0 !important; max-width: 100% !important; }
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            600: '#475569',
+                            blue: '#0284c7',
+                            gold: '#b45309'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-brand-900 py-10 no-print:bg-slate-100">
+        <!-- Back to site -->
+    <div class="no-print max-w-4xl mx-auto px-4 mb-4 flex justify-end">
+        <a href="../index.html" class="text-sm font-semibold text-brand-blue hover:text-brand-900 transition-colors flex items-center gap-2">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to site
+        </a>
+    </div>
+
+    <!-- Document Container -->
+    <div class="max-w-4xl mx-auto bg-white shadow-2xl print-shadow-none overflow-hidden border border-slate-200">
+        
+        <!-- Header Section -->
+        <header class="bg-brand-900 text-white p-12 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold tracking-tight uppercase border-l-4 border-brand-blue pl-4">Wired<span class="text-blue-500">Wave</span></h1>
+                <p class="text-slate-300 text-sm tracking-widest uppercase mt-2 pl-5">Network Solutions</p>
+            </div>
+            <div class="text-right">
+                <p class="font-semibold text-lg">Ram Aditya Nanisetti</p>
+                <p class="text-slate-400 text-sm mb-1">Principal Engineer</p>
+                <p class="text-slate-400 text-sm mb-1">Cisco Certified Network Professional</p>
+                <p class="text-slate-400 text-sm">Hyderabad, Telangana</p>
+            </div>
+        </header>
+
+        <!-- Hero Proposition -->
+        <section class="p-12 pb-8 text-center bg-slate-50 border-b border-slate-200">
+            <h2 class="text-4xl font-light leading-tight mb-6 text-brand-900">
+                Enterprise-Grade Infrastructure, <br>
+                <span class="font-bold text-brand-blue">Right-Sized for Your Business.</span>
+            </h2>
+            <p class="text-lg text-brand-600 max-w-2xl mx-auto leading-relaxed">
+                We design and deploy highly resilient, bottleneck-free networks and secure infrastructure for luxury residences, boutique hotels, medical clinics, and growing businesses—without the bloated entry costs of traditional IT vendors.
+            </p>
+        </section>
+
+        <!-- The Problem & Solution -->
+        <section class="flex flex-col md:flex-row border-b border-slate-200">
+            <div class="p-12 md:w-1/2 border-r border-slate-200 bg-white">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="wifi-off" class="text-red-600 w-6 h-6 mr-3"></i>
+                    <h3 class="text-xl font-bold text-brand-900">The Problem</h3>
+                </div>
+                <p class="text-brand-600 leading-relaxed mb-4">
+                    Most growing businesses and high-end homes rely on consumer-grade "mesh" systems or outdated setups. As device counts grow, these networks inevitably fail—resulting in dropped video calls, guest complaints, security vulnerabilities, and sluggish operations.
+                </p>
+                <p class="text-brand-600 leading-relaxed">
+                    Upgrading to traditional "enterprise" IT often means exorbitant licensing fees and overly complex contracts that small businesses and HNIs simply do not need.
+                </p>
+            </div>
+            <div class="p-12 md:w-1/2 bg-brand-900 text-white">
+                <div class="flex items-center mb-4">
+                    <i data-lucide="shield-check" class="text-brand-blue w-6 h-6 mr-3"></i>
+                    <h3 class="text-xl font-bold text-white">The WiredWave Standard</h3>
+                </div>
+                <p class="text-slate-300 leading-relaxed mb-4">
+                    We bridge the gap. We utilize a strict <strong>"Wired-First"</strong> design philosophy paired with modern, high-performance hardware stacks.
+                </p>
+                <p class="text-slate-300 leading-relaxed">
+                    The result? Board-room-ready reliability, absolute data sovereignty, and wall-to-wall performance that simply works, allowing you to focus on your business, not your Wi-Fi.
+                </p>
+            </div>
+        </section>
+
+        <!-- Core Capabilities -->
+        <section class="p-12 bg-white">
+            <h3 class="text-2xl font-bold text-center mb-10 text-brand-900 tracking-tight">Our Core Capabilities</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <!-- Capability 1 -->
+                <div class="flex items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg mr-5 border border-blue-100">
+                        <i data-lucide="network" class="text-brand-blue w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">Resilient Infrastructure</h4>
+                        <p class="text-sm text-brand-600 leading-relaxed">
+                            Custom-architected wired and wireless networks tailored to your floorplan. We eliminate dead zones and buffering, ensuring seamless roaming and high-capacity performance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Capability 2 -->
+                <div class="flex items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg mr-5 border border-blue-100">
+                        <i data-lucide="lock" class="text-brand-blue w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">Secure Segmentation</h4>
+                        <p class="text-sm text-brand-600 leading-relaxed">
+                            We physically and logically separate your networks (VLANs). Your guests, your staff, your smart-home devices, and your sensitive operational data remain completely isolated and secure.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Capability 3 -->
+                <div class="flex items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg mr-5 border border-blue-100">
+                        <i data-lucide="cctv" class="text-brand-blue w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">Professional IP CCTV</h4>
+                        <p class="text-sm text-brand-600 leading-relaxed">
+                            High-definition, localized security camera deployments. Prioritizing data privacy, your footage is stored securely on-site, fully under your control, without relying on vulnerable cloud subscriptions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Capability 4 -->
+                <div class="flex items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg mr-5 border border-blue-100">
+                        <i data-lucide="server" class="text-brand-blue w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">Localized Virtualization</h4>
+                        <p class="text-sm text-brand-600 leading-relaxed">
+                            For advanced setups, we deploy on-premise private servers (Proxmox). Run your own localized services, file sharing, and operations with enterprise-grade reliability and zero latency.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Capability 5 -->
+                <div class="flex items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg mr-5 border border-blue-100">
+                        <i data-lucide="hard-drive" class="text-brand-blue w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">Local NAS & Secure VPN</h4>
+                        <p class="text-sm text-brand-600 leading-relaxed">
+                            High-speed, localized storage (NAS) for your sensitive files. Access your data securely from anywhere in the world via a private, encrypted VPN connection—bypassing third-party cloud subscription limits.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Capability 6 -->
+                <div class="flex items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg mr-5 border border-blue-100">
+                        <i data-lucide="bot" class="text-brand-blue w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">Local AI Deployments</h4>
+                        <p class="text-sm text-brand-600 leading-relaxed">
+                            Future-proof your operations with on-premise, privacy-first AI. Run powerful automated workflows and intelligent agents directly on your hardware, ensuring your proprietary data never leaves your building.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- The Audit Offer / Call to Action -->
+        <section class="bg-brand-blue text-white p-12 text-center page-break">
+            <h3 class="text-2xl font-bold mb-4">Request a Network Performance Audit</h3>
+            <p class="text-blue-100 mb-8 max-w-xl mx-auto leading-relaxed">
+                Discover exactly where your current infrastructure is bottlenecking your operations. We provide a comprehensive, no-obligation site survey to map out a resilient, right-sized solution.
+            </p>
+            
+            <div class="inline-block bg-white text-brand-900 px-8 py-4 rounded shadow-lg">
+                <p class="font-bold text-lg mb-1">Contact for Consultation</p>
+                <div class="flex flex-wrap items-center justify-center gap-4 sm:space-x-6 mt-3 text-sm text-brand-600">
+                    <a href="tel:+917386435520" class="flex items-center hover:text-brand-blue transition-colors">
+                        <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+                        <span>+91 7386435520</span>
+                    </a>
+                    <a href="https://wa.me/917386435520?text=Hi%20WiredWave%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-brand-blue transition-colors">
+                        <i data-lucide="message-circle" class="w-4 h-4 mr-2"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="mailto:support@wiredwave.in" class="flex items-center hover:text-brand-blue transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+                        <span>support@wiredwave.in</span>
+                    </a>
+                    <div class="flex items-center">
+                        <i data-lucide="map-pin" class="w-4 h-4 mr-2"></i>
+                        <span>Hyderabad, TS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
